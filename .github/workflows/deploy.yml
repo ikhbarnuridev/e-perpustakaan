@@ -1,11 +1,8 @@
 name: Deploy to Production
 
 on:
-  workflow_run:
-    workflows: [Fix Styling]
-    branches: [main]
-    types:
-      - completed
+  push:
+    branches: ["main"]
 
 jobs:
   deploy:
