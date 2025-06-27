@@ -52,12 +52,25 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'npm' => ['required','string','max:10','unique:profile'],
-            'prodi'=> ['required','string','max:45'],
-            'alamat'=> ['required','string','max:45'],
-            'noTelp'=> ['required','string','max:45'],
+            'npm' => ['required', 'string', 'max:10', 'unique:profile'],
+            'prodi' => ['required', 'string', 'max:45'],
+            'alamat' => ['required', 'string', 'max:45'],
+            'noTelp' => ['required', 'string', 'max:45'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+    }
+
+
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showRegistrationForm()
+    {
+        return view('auth.register', [
+            'title' => 'Registrasi'
         ]);
     }
 
@@ -76,11 +89,11 @@ class RegisterController extends Controller
         ]);
 
         Profile::create([
-            'npm'=>$data['npm'],
-            'prodi'=>$data['prodi'],
-            'alamat'=>$data['alamat'],
-            'noTelp'=>$data['noTelp'],
-            'users_id'=>$user->id,
+            'npm' => $data['npm'],
+            'prodi' => $data['prodi'],
+            'alamat' => $data['alamat'],
+            'noTelp' => $data['noTelp'],
+            'users_id' => $user->id,
         ]);
 
         return $user;

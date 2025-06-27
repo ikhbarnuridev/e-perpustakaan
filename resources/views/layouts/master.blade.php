@@ -7,11 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link href="{{ asset('/img/logo.png') }}" rel="icon">
+    <link href="{{ asset('assets/images/logo.png') }}" rel="icon">
     <title>Sistem Informasi Perpustakaan</title>
-    <link href="{{ asset('/template/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('/template/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('/template/css/ruang-admin.min.css') }}" rel="stylesheet">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <link href="{{ asset('assets/template/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet"
+        type="text/css">
+    <link href="{{ asset('assets/template/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/template/css/ruang-admin.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
         integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -91,11 +99,11 @@
     </a>
 
 
-    <script src="{{ asset('/template/vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('/template/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('/tempate/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-    <script src="{{ asset('/template/js/ruang-admin.min.js') }}"></script>
-    <script src="{{ asset('/templte/js/demo/chart-area-demo.js') }}"></script>
+    <script src="{{ asset('assets/template/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/template/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/tempate/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+    <script src="{{ asset('assets/template/js/ruang-admin.min.js') }}"></script>
+    <script src="{{ asset('assets/templte/js/demo/chart-area-demo.js') }}"></script>
 
 
     @stack('scripts')

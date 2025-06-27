@@ -24,8 +24,11 @@ use App\Http\Controllers\RiwayatPinjamController;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('auth.login', [
+        'title' => 'Login'
+    ]);
 });
+
 Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
@@ -38,14 +41,13 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('anggota', AnggotaController::class);
 
-    Route::resource('profile', ProfileController::class)->only('index','update','edit');
+    Route::resource('profile', ProfileController::class)->only('index', 'update', 'edit');
 
     Route::resource('peminjaman', RiwayatPinjamController::class);
 
     Route::get('/cetaklaporan', CetakLaporanController::class);
 
-    Route::get('/pengembalian', [PengembalianController::class,'index']);
+    Route::get('/pengembalian', [PengembalianController::class, 'index']);
 
-    Route::post('/pengembalian', [PengembalianController::class,'pengembalian']);
-
+    Route::post('/pengembalian', [PengembalianController::class, 'pengembalian']);
 });
