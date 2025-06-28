@@ -31,19 +31,18 @@ class HomeController extends Controller
     public function index()
     {
         $iduser = Auth::id();
-        $profile = Profile::where('users_id',$iduser)->first();
+        $profile = Profile::where('user_id', $iduser)->first();
         $kategori = Kategori::count();
         $buku = Buku::count();
-        $user = User::where('isAdmin','0')->count();
-        $riwayat_pinjam = Peminjaman::with(['user','buku'])->orderBy('updated_at','desc')->get();
+        $user = User::where('is_admin', '0')->count();
+        $riwayat_pinjam = Peminjaman::with(['user', 'buku'])->orderBy('updated_at', 'desc')->get();
         $jumlah_riwayat = Peminjaman::count();
-        $pinjamanUser = Peminjaman::where('users_id',$iduser)->where('tanggal_pengembalian',null)->count();
+        $pinjamanUser = Peminjaman::where('user_id', $iduser)->where('tanggal_pengembalian', null)->count();
 
-        if(Auth::user()->isAdmin==1) {
-            return view('AdminDashboard',compact('kategori','buku','user','profile','riwayat_pinjam','jumlah_riwayat'));
-            }
-            else{
-            return view('AnggotaDashboard',compact('kategori','buku','profile','user','pinjamanUser'));
-            }
+        if (Auth::user()->is_admin == 1) {
+            return view('AdminDashboard', compact('kategori', 'buku', 'user', 'profile', 'riwayat_pinjam', 'jumlah_riwayat'));
+        } else {
+            return view('AnggotaDashboard', compact('kategori', 'buku', 'profile', 'user', 'pinjamanUser'));
+        }
     }
 }

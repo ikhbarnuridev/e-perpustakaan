@@ -20,9 +20,9 @@ class KategoriController extends Controller
     public function index()
     {
         $iduser = Auth::id();
-        $profile = Profile::where('users_id',$iduser)->first();
+        $profile = Profile::where('user_id', $iduser)->first();
         $kategori = Kategori::all();
-        return view('kategori.tampil',['kategori'=>$kategori,'profile'=>$profile]);
+        return view('kategori.tampil', ['kategori' => $kategori, 'profile' => $profile]);
     }
 
     /**
@@ -33,9 +33,9 @@ class KategoriController extends Controller
     public function create()
     {
         $iduser = Auth::id();
-        $profile = Profile::where('users_id',$iduser)->first();
+        $profile = Profile::where('user_id', $iduser)->first();
         $kategori = Kategori::all();
-        return view('Kategori.tambah',['kategori' =>$kategori,'profile'=>$profile]);
+        return view('Kategori.tambah', ['kategori' => $kategori, 'profile' => $profile]);
     }
 
     /**
@@ -46,13 +46,15 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nama' => 'required|min:2',
-        ],
-        [
-            'nama.required' => "Masukkan nama kategori",
-            'nama.min' => "Minimal 2 karakter"
-        ]);
+        $request->validate(
+            [
+                'nama' => 'required|min:2',
+            ],
+            [
+                'nama.required' => "Masukkan nama kategori",
+                'nama.min' => "Minimal 2 karakter"
+            ]
+        );
 
         $kategori = Kategori::create($request->all());
 
@@ -69,10 +71,10 @@ class KategoriController extends Controller
     public function show($id)
     {
         $iduser = Auth::id();
-        $profile = Profile::where('users_id',$iduser)->first();
-        $kategori= Kategori::find($id);
+        $profile = Profile::where('user_id', $iduser)->first();
+        $kategori = Kategori::find($id);
         $buku = Buku::all();
-        return view('kategori.detail',['kategori'=>$kategori,'profile'=>$profile,'buku'=>$buku]);
+        return view('kategori.detail', ['kategori' => $kategori, 'profile' => $profile, 'buku' => $buku]);
     }
 
     /**
@@ -84,9 +86,9 @@ class KategoriController extends Controller
     public function edit($id)
     {
         $iduser = Auth::id();
-        $profile = Profile::where('users_id',$iduser)->first();
+        $profile = Profile::where('user_id', $iduser)->first();
         $kategori = Kategori::find($id);
-        return view('kategori.edit',['kategori'=>$kategori,'profile'=>$profile]);
+        return view('kategori.edit', ['kategori' => $kategori, 'profile' => $profile]);
     }
 
     /**
@@ -98,19 +100,21 @@ class KategoriController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'nama' => 'required|min:2',
-        ],
-        [
-            'nama.required' => "Masukkan nama kategori",
-            'nama.min' => "Minimal 2 karakter"
-        ]);
+        $request->validate(
+            [
+                'nama' => 'required|min:2',
+            ],
+            [
+                'nama.required' => "Masukkan nama kategori",
+                'nama.min' => "Minimal 2 karakter"
+            ]
+        );
 
         $kategori = new Kategori;
-        $kategori =Kategori::find($id);
+        $kategori = Kategori::find($id);
 
-        $kategori ->nama =$request->nama;
-        $kategori ->deskripsi= $request->deskripsi;
+        $kategori->nama = $request->nama;
+        $kategori->deskripsi = $request->deskripsi;
 
         $kategori->save();
 
@@ -126,7 +130,7 @@ class KategoriController extends Controller
      */
     public function destroy($id)
     {
-        $kategori=Kategori::find($id);
+        $kategori = Kategori::find($id);
 
         $kategori->delete();
 

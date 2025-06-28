@@ -1,57 +1,26 @@
-@extends('layouts.welcome')
-
-@section('content')
+@extends('layouts.welcome') @section('content')
     <div class="container">
         <div class="row d-flex justify-content-center">
             <div class="col-md-7">
                 <div class="card">
-                    <div class="card-header text-lg text-dark">{{ __('Register') }}</div>
+                    <div class="card-header text-lg text-dark">
+                        {{ __('Registrasi') }}
+                    </div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('register') }} ">
+                        <form method="POST" action="{{ route('register') }}"
+                            {{ env('APP_ENV') != 'production' ? 'novalidate' : '' }}>
                             @csrf
                             <div class="row mb-3">
-                                <label for="name"
+                                <label for="nama"
                                     class="col-md-4 col-form-label text-left text-md-right text-dark">{{ __('Nama Lengkap') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="name" type="text"
-                                        class="form-control @error('name') is-invalid @enderror" name="name"
-                                        value="{{ old('name') }}">
+                                    <input id="nama" type="text"
+                                        class="form-control @error('nama') is-invalid @enderror" name="nama"
+                                        value="{{ old('nama') }}" required />
 
-                                    @error('name')
-                                        <span class="invalid-feedback text-left" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label for="npm"
-                                    class="col-md-4 col-form-label text-left text-md-right text-dark">{{ __('NPM') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="npm" type="text"
-                                        class="form-control @error('npm') is-invalid @enderror" name="npm"
-                                        value="{{ old('npm') }}">
-
-                                    @error('npm')
-                                        <span class="invalid-feedback text-left" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label for="prodi"
-                                    class="col-md-4 col-form-label text-left text-md-right text-dark">{{ __('Program Studi') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="prodi" type="text"
-                                        class="form-control @error('prodi') is-invalid @enderror" name="prodi"
-                                        value="{{ old('prodi') }}">
-
-                                    @error('prodi')
+                                    @error('nama')
                                         <span class="invalid-feedback text-left" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -60,30 +29,15 @@
                             </div>
 
                             <div class="row mb-3">
-                                <label for="alamat"
-                                    class="col-md-4 col-form-label text-left text-md-right text-dark">Alamat</label>
+                                <label for="nis"
+                                    class="col-md-4 col-form-label text-left text-md-right text-dark">{{ __('NIS') }}</label>
 
                                 <div class="col-md-6">
-                                    <textarea name="alamat" id="" class="form-control @error('alamat') is-invalid @enderror">{{ old('alamat') }}</textarea>
-                                    @error('alamat')
-                                        <span class="invalid-feedback text-left" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
+                                    <input id="nis" type="text"
+                                        class="form-control @error('nis') is-invalid @enderror" name="nis"
+                                        value="{{ old('nis') }}" required />
 
-
-                            <div class="row mb-3">
-                                <label for="notelp"
-                                    class="col-md-4 col-form-label text-left text-md-right text-dark">{{ __('No.telp') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="notelp" type="text"
-                                        class="form-control @error('noTelp') is-invalid @enderror" name="noTelp"
-                                        value="{{ old('noTelp') }}">
-
-                                    @error('noTelp')
+                                    @error('nis')
                                         <span class="invalid-feedback text-left" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -98,7 +52,7 @@
                                 <div class="col-md-6">
                                     <input id="email" type="email"
                                         class="form-control @error('email') is-invalid @enderror" name="email"
-                                        value="{{ old('email') }}">
+                                        value="{{ old('email') }}" required />
 
                                     @error('email')
                                         <span class="invalid-feedback text-left" role="alert">
@@ -109,12 +63,12 @@
                             </div>
 
                             <div class="row mb-3">
-                                <label for="password"
-                                    class="col-md-4 col-form-label text-left text-md-right text-dark">{{ __('Password') }}</label>
+                                <label for="password" class="col-md-4 col-form-label text-left text-md-right text-dark"
+                                    required>{{ __('Password') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="password" type="password"
-                                        class="form-control @error('password') is-invalid @enderror" name="password">
+                                        class="form-control @error('password') is-invalid @enderror" name="password" />
 
                                     @error('password')
                                         <span class="invalid-feedback text-left" role="alert">
@@ -126,11 +80,14 @@
 
                             <div class="row mb-3">
                                 <label for="password-confirm"
-                                    class="col-md-4 col-form-label text-left text-md-right text-dark">{{ __('Confirm Password') }}</label>
+                                    class="col-md-4 col-form-label text-left text-md-right text-dark">{{ __(
+                                        "Confirm
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Password",
+                                    ) }}</label>
 
                                 <div class="col-md-6">
                                     <input id="password-confirm" type="password" class="form-control"
-                                        name="password_confirmation">
+                                        name="password_confirmation" />
                                 </div>
                             </div>
                             <div class="row mb-0">
@@ -144,7 +101,7 @@
                             <div class="row mb-0">
                                 <div class="col-md-5 offset-md-4">
                                     <button type="submit" class="btn btn-primary px-5">
-                                        {{ __('Register') }}
+                                        {{ __('Registrasi') }}
                                     </button>
                                 </div>
                             </div>

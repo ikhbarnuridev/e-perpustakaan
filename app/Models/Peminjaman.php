@@ -15,7 +15,11 @@ class Peminjaman extends Model
     protected $table = 'riwayat_pinjam';
 
     protected $fillable = [
-      'users_id','buku_id','tanggal_pinjam','tanggal_wajib_kembali','tanggal_pengembalian'
+        'user_id',
+        'buku_id',
+        'tanggal_pinjam',
+        'tanggal_wajib_kembali',
+        'tanggal_pengembalian'
     ];
 
     /**
@@ -25,7 +29,7 @@ class Peminjaman extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'users_id', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
     /**
      * Get the user that owns the Peminjaman

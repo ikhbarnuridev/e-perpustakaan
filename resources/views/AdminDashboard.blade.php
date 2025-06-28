@@ -51,6 +51,7 @@
                 </div>
             </div>
         </div>
+
         <!-- Earnings (Annual) Card Example -->
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card h-100 bg-gradient-info">
@@ -68,6 +69,7 @@
                 </div>
             </div>
         </div>
+
         <!-- New User Card Example -->
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card h-100 bg-gradient-success">
@@ -85,13 +87,15 @@
                 </div>
             </div>
         </div>
+
         <!-- Pending Requests Card Example -->
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card h-100 bg-gradient-danger">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-sm text-light font-weight-bold text-uppercase mb-1" style="font-size:.8`rem;">Riwayat Peminjamam</div>
+                            <div class="text-sm text-light font-weight-bold text-uppercase mb-1" style="font-size:.8`rem;">
+                                Riwayat Peminjamam</div>
                             <div class="h5 mb-0 mr-3 font-weight-bold text-light">{{ $jumlah_riwayat }}</div>
                             <div class="button mt-2"><a href="#" class="text-light">Lihat</a></div>
                         </div>
@@ -109,7 +113,8 @@
     <div class="col-lg-auto">
         <div class="card mb-4">
             <div class="table-responsive p-3">
-                <table class="table align-items-center justify-content-center table-flush table-hover" id="dataTableHover" style="font-size:.7rem">
+                <table class="table align-items-center justify-content-center table-flush table-hover" id="dataTableHover"
+                    style="font-size:.7rem">
                     <thead class="thead-light">
                         <tr>
                             <th scope="col">No.</th>
@@ -122,18 +127,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($riwayat_pinjam as $item )
-                        <tr>
-                            <th scope="row">{{ $loop->iteration }}</th>
-                            <td>{{ $item->user->name }}</td>
-                            <td>{{ $item->buku->judul }}</td>
-                            <td>{{ $item->buku->kode_buku }}</td>
-                            <td>{{ $item->tanggal_pinjam }}</td>
-                            <td>{{ $item->tanggal_wajib_kembali }}</td>
-                            <td>{{ $item->tanggal_pengembalian }}</td>
-                        </tr>
+                        @forelse ($riwayat_pinjam as $item)
+                            <tr>
+                                <th scope="row">{{ $loop->iteration }}</th>
+                                <td>{{ $item->user->name }}</td>
+                                <td>{{ $item->buku->judul }}</td>
+                                <td>{{ $item->buku->kode_buku }}</td>
+                                <td>{{ $item->tanggal_pinjam }}</td>
+                                <td>{{ $item->tanggal_wajib_kembali }}</td>
+                                <td>{{ $item->tanggal_pengembalian }}</td>
+                            </tr>
                         @empty
-
                         @endforelse
                     </tbody>
                 </table>

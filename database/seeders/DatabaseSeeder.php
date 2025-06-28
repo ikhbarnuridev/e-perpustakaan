@@ -22,28 +22,28 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@admin.com',
             'password' => Hash::make('admin123'),
-            'isAdmin' => '1',
+            'is_admin' => '1',
         ]);
 
         User::create([
             'name' => 'Aditio',
             'email' => 'aditio@gmail.com',
             'password' => Hash::make('12345678'),
-            'isAdmin' => '0',
+            'is_admin' => '0',
         ]);
 
         User::create([
             'name' => 'Adit',
             'email' => 'adit@gmail.com',
             'password' => Hash::make('admin123'),
-            'isAdmin' => '0',
+            'is_admin' => '0',
         ]);
 
         User::create([
             'name' => 'Tio',
             'email' => 'tio@gmail.com',
             'password' => Hash::make('12345678'),
-            'isAdmin' => '0',
+            'is_admin' => '0',
         ]);
 
         Profile::create([
@@ -51,7 +51,7 @@ class DatabaseSeeder extends Seeder
             'prodi' => 'admin',
             'alamat' => 'kampus',
             'noTelp' => 'admin',
-            'users_id' => '1',
+            'user_id' => '1',
         ]);
 
         Profile::create([
@@ -59,7 +59,7 @@ class DatabaseSeeder extends Seeder
             'prodi' => 'Teknik Informatika',
             'alamat' => 'Bandung',
             'noTelp' => '089609760132',
-            'users_id' => '2',
+            'user_id' => '2',
         ]);
 
         Profile::create([
@@ -67,7 +67,7 @@ class DatabaseSeeder extends Seeder
             'prodi' => 'Tenkin Electro',
             'alamat' => 'Jakata',
             'noTelp' => '08123975855',
-            'users_id' => '3',
+            'user_id' => '3',
         ]);
 
         Profile::create([
@@ -75,7 +75,7 @@ class DatabaseSeeder extends Seeder
             'prodi' => 'Sistem Informasi',
             'alamat' => 'Garut',
             'noTelp' => '08958923134',
-            'users_id' => '4',
+            'user_id' => '4',
         ]);
 
         Kategori::create([

@@ -27,7 +27,7 @@
                 <h6 class="collapse-header">Buku</h6>
                 <a class="collapse-item" href="/buku">Lihat Semua Buku</a>
 
-                @if (Auth::user()->isAdmin == 1)
+                @if (Auth::user()->is_admin == 1)
                     <a class="collapse-item" href="/buku/create">Tambah Buku</a>
                 @endif
 
@@ -45,7 +45,7 @@
                 <h6 class="collapse-header">Kategori</h6>
                 <a class="collapse-item" href="/kategori">Lihat Kategori</a>
 
-                @if (Auth::user()->isAdmin == 1)
+                @if (Auth::user()->is_admin == 1)
                     <a class="collapse-item" href="/kategori/create">Tambah Kategori</a>
                 @endif
 
@@ -53,7 +53,7 @@
         </div>
     </li>
 
-    @if (Auth::user()->isAdmin == 1)
+    @if (Auth::user()->is_admin == 1)
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable"
                 aria-expanded="true" aria-controls="collapseTable">
@@ -70,7 +70,7 @@
         </li>
     @endif
 
-    @if (Auth::user()->isAdmin == 1)
+    @if (Auth::user()->is_admin == 1)
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePeminjam"
                 aria-expanded="true" aria-controls="collapsePeminjam">
@@ -89,7 +89,7 @@
         </li>
     @endif
 
-    @if (Auth::user()->isAdmin == 0)
+    @if (Auth::user()->is_admin == 0)
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePeminjam"
                 aria-expanded="true" aria-controls="collapsePeminjam">

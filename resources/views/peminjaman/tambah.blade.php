@@ -21,24 +21,25 @@
                 @csrf
                 <div class="form-group">
                     <label for="nama" class="text-primary font-weight-bold">Nama Peminjam</label>
-                    @if(Auth::user()->isAdmin == 1)
-                    <select name="users_id" id="" class="form-control">
-                        <option value=""></option>
-                        @forelse ($peminjam as $item)
-                                <option value="{{ $item->id }}">{{ $item->user->name}} ( {{ $item->npm }} )</option>
+                    @if (Auth::user()->is_admin == 1)
+                        <select name="user_id" id="" class="form-control">
+                            <option value=""></option>
+                            @forelse ($peminjam as $item)
+                                <option value="{{ $item->id }}">{{ $item->user->name }} ( {{ $item->npm }} )</option>
                             @empty
                                 tidak ada user
                             @endforelse
-                    </select>
+                        </select>
                     @endif
 
-                    @if(Auth::user()->isAdmin == 0)
-                    <select name="users_id" id="" class="form-control">
-                        <option value="{{ $peminjam->users_id }}">{{ $peminjam->user->name }} ( {{ $peminjam->npm }} )</option>
-                    </select>
+                    @if (Auth::user()->is_admin == 0)
+                        <select name="user_id" id="" class="form-control">
+                            <option value="{{ $peminjam->user_id }}">{{ $peminjam->user->name }} ( {{ $peminjam->npm }} )
+                            </option>
+                        </select>
                     @endif
 
-                    @error('users_id')
+                    @error('user_id')
                         <div class="alert alert-danger mt-3">{{ $message }}</div>
                     @enderror
                 </div>
@@ -49,10 +50,11 @@
                     <select name="buku_id" id="" class="form-control">
                         <option value=""></option>
                         @forelse ($buku as $item)
-                                <option value="{{ $item->id }}">{{ $item->judul}} ( {{ $item->kode_buku }} ) - {{ $item->status }}</option>
-                            @empty
-                                tidak ada buku yang tersedia
-                            @endforelse
+                            <option value="{{ $item->id }}">{{ $item->judul }} ( {{ $item->kode_buku }} ) -
+                                {{ $item->status }}</option>
+                        @empty
+                            tidak ada buku yang tersedia
+                        @endforelse
                     </select>
                 </div>
 

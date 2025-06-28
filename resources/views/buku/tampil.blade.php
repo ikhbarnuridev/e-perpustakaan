@@ -13,7 +13,7 @@
 @endsection
 
 @section('content')
-    @if (Auth::user()->isAdmin == 1)
+    @if (Auth::user()->is_admin == 1)
         <a href="/buku/create" class="btn btn-info mb-3">Tambah Buku</a>
     @endif
 
@@ -57,7 +57,7 @@
                             </p>
                                 <p class="card-text m-0">Status : {{$item->status  }}</p>
                             </div>
-                            @if (Auth::user()->isAdmin == 1)
+                            @if (Auth::user()->is_admin == 1)
                                 <div class="button-area">
                                     <button class="btn-sm btn-info px-2"><a href="/buku/{{ $item->id }}"
                                             style="text-decoration: none; color:white;">Detail</a></button>
@@ -68,7 +68,7 @@
                                 </div>
                             @endif
 
-                            @if (Auth::user()->isAdmin == 0)
+                            @if (Auth::user()->is_admin == 0)
                                 <div class="button-area">
                                     <button class="btn-sm btn-info px-2"> <a href="/buku/{{ $item->id }}"
                                     style="text-decoration: none; color:white;">Detail</a></button>

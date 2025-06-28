@@ -22,9 +22,9 @@ class AnggotaController extends Controller
     public function index()
     {
         $iduser = Auth::id();
-        $user = User::all()->where('isAdmin','0');
-        $profile = Profile::where('users_id',$iduser)->first();
-        return view('anggota.tampil',['anggota'=>$user,'profile'=>$profile]);
+        $user = User::all()->where('is_admin', '0');
+        $profile = Profile::where('user_id', $iduser)->first();
+        return view('anggota.tampil', ['anggota' => $user, 'profile' => $profile]);
     }
 
     /**
@@ -35,9 +35,9 @@ class AnggotaController extends Controller
     public function create()
     {
         $iduser = Auth::id();
-        $user = User::all()->where('isAdmin','0');
-        $profile = Profile::where('users_id',$iduser)->first();
-        return view('anggota.tambah',['user'=>$user,'profile'=>$profile]);
+        $user = User::all()->where('is_admin', '0');
+        $profile = Profile::where('user_id', $iduser)->first();
+        return view('anggota.tambah', ['user' => $user, 'profile' => $profile]);
     }
 
     /**
@@ -48,27 +48,29 @@ class AnggotaController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name'=> 'required',
-            'npm'=> 'required|unique:profile',
-            'prodi'=> 'required',
-            'alamat'=> 'required',
-            'noTelp'=> 'required',
-            'email'=>'required|unique:users',
-            'password'=>'required|min:8',
-        ],
-        [
-            'name.required'=>"Nama tidak boleh kosong",
-            'npm.required'=>"Nomor Induk tidak boleh kosong",
-            'npm.unique'=>"NPM Telah Digunakan",
-            'prodi.required'=>"Prodi tidak boleh kosong",
-            'alamat.required'=>"Alamat tidak boleh kosong",
-            'noTelp.required'=>"Nomor Telepon tidak boleh kosong",
-            'email.required'=>"Email tidak boleh kosong",
-            'email.unique'=>"Email Telah Digunakan",
-            'password.required'=>"Password Tidak boleh kosong",
-            'password.min'=>"Password tidak boleh kurang dari 8 karakter"
-        ]);
+        $request->validate(
+            [
+                'name' => 'required',
+                'npm' => 'required|unique:profile',
+                'prodi' => 'required',
+                'alamat' => 'required',
+                'noTelp' => 'required',
+                'email' => 'required|unique:users',
+                'password' => 'required|min:8',
+            ],
+            [
+                'name.required' => "Nama tidak boleh kosong",
+                'npm.required' => "Nomor Induk tidak boleh kosong",
+                'npm.unique' => "NPM Telah Digunakan",
+                'prodi.required' => "Prodi tidak boleh kosong",
+                'alamat.required' => "Alamat tidak boleh kosong",
+                'noTelp.required' => "Nomor Telepon tidak boleh kosong",
+                'email.required' => "Email tidak boleh kosong",
+                'email.unique' => "Email Telah Digunakan",
+                'password.required' => "Password Tidak boleh kosong",
+                'password.min' => "Password tidak boleh kurang dari 8 karakter"
+            ]
+        );
 
         $user = User::create([
             'name' => $request['name'],
@@ -77,11 +79,11 @@ class AnggotaController extends Controller
         ]);
 
         Profile::create([
-            'npm'=>$request['npm'],
-            'prodi'=>$request['prodi'],
-            'alamat'=>$request['alamat'],
-            'noTelp'=>$request['noTelp'],
-            'users_id'=>$user->id,
+            'npm' => $request['npm'],
+            'prodi' => $request['prodi'],
+            'alamat' => $request['alamat'],
+            'noTelp' => $request['noTelp'],
+            'user_id' => $user->id,
         ]);
 
         Alert::success('Success', 'Berhasil Menambah Anggota');
@@ -97,9 +99,9 @@ class AnggotaController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        $profile = Profile::where('users_id',$id)->first();
-        $pinjamanUser = Peminjaman::where('users_id',$user->id)->get();
-        return view('anggota.detail',['user'=>$user,'profile'=>$profile,'pinjamanUser'=>$pinjamanUser]);
+        $profile = Profile::where('user_id', $id)->first();
+        $pinjamanUser = Peminjaman::where('user_id', $user->id)->get();
+        return view('anggota.detail', ['user' => $user, 'profile' => $profile, 'pinjamanUser' => $pinjamanUser]);
     }
 
     /**
@@ -111,8 +113,8 @@ class AnggotaController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        $profile = Profile::where('users_id',$id)->first();
-        return view('anggota.edit',['user'=>$user,'profile'=>$profile]);
+        $profile = Profile::where('user_id', $id)->first();
+        return view('anggota.edit', ['user' => $user, 'profile' => $profile]);
     }
 
     /**
@@ -124,38 +126,40 @@ class AnggotaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name'=> 'required',
-            'npm'=> 'required',
-            'prodi'=> 'required',
-            'alamat'=> 'required',
-            'noTelp'=> 'required',
-            'photoProfile'=> 'nullable|mimes:jpg,jpeg,png|max:2048'
-        ],
-        [
-            'name.required'=>"Nama tidak boleh kosong",
-            'npm.required'=>"Nomor Induk tidak boleh kosong",
-            'prodi.required'=>"Prodi tidak boleh kosong",
-            'alamat.required'=>"Alamat tidak boleh kosong",
-            'noTelp.required'=>"Nomor Telepon tidak boleh kosong",
-            'photoProfile.mimes' =>"Foto Profile Harus Berupa jpg,jpeg,atau png",
-            'photoProfile.max' => "ukuran gambar tidak boleh lebih dari 2048 MB"
-        ]);
+        $request->validate(
+            [
+                'name' => 'required',
+                'npm' => 'required',
+                'prodi' => 'required',
+                'alamat' => 'required',
+                'noTelp' => 'required',
+                'photoProfile' => 'nullable|mimes:jpg,jpeg,png|max:2048'
+            ],
+            [
+                'name.required' => "Nama tidak boleh kosong",
+                'npm.required' => "Nomor Induk tidak boleh kosong",
+                'prodi.required' => "Prodi tidak boleh kosong",
+                'alamat.required' => "Alamat tidak boleh kosong",
+                'noTelp.required' => "Nomor Telepon tidak boleh kosong",
+                'photoProfile.mimes' => "Foto Profile Harus Berupa jpg,jpeg,atau png",
+                'photoProfile.max' => "ukuran gambar tidak boleh lebih dari 2048 MB"
+            ]
+        );
         $user = User::find($id);
         $profile = Profile::find($id);
 
-        if($request->has('photoProfile')){
-         $path='images/photoProifle';
+        if ($request->has('photoProfile')) {
+            $path = 'images/photoProifle';
 
-         File::delete($path.$profile->photoProfile);
+            File::delete($path . $profile->photoProfile);
 
-         $namaGambar = time().'.'.$request->photoProfile->extension();
+            $namaGambar = time() . '.' . $request->photoProfile->extension();
 
-         $request->photoProfile->move(public_path('images/photoProfile'),$namaGambar);
+            $request->photoProfile->move(public_path('images/photoProfile'), $namaGambar);
 
-         $profile->photoProfile =$namaGambar;
+            $profile->photoProfile = $namaGambar;
 
-         $profile->save();
+            $profile->save();
         }
         $user->name = $request->name;
         $profile->npm = $request->npm;

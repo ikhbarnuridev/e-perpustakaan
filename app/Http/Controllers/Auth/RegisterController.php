@@ -51,11 +51,8 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'npm' => ['required', 'string', 'max:10', 'unique:profile'],
-            'prodi' => ['required', 'string', 'max:45'],
-            'alamat' => ['required', 'string', 'max:45'],
-            'noTelp' => ['required', 'string', 'max:45'],
+            'nama' => ['required', 'string', 'max:255'],
+            'nis' => ['required', 'string', 'max:10', 'unique:profile'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -83,17 +80,15 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $user = User::create([
-            'name' => $data['name'],
+            'nama' => $data['nama'],
+            'username' => $data['nis'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
 
         Profile::create([
-            'npm' => $data['npm'],
-            'prodi' => $data['prodi'],
-            'alamat' => $data['alamat'],
-            'noTelp' => $data['noTelp'],
-            'users_id' => $user->id,
+            'nis' => $data['nis'],
+            'user_id' => $user->id,
         ]);
 
         return $user;

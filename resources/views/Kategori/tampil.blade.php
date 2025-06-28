@@ -32,7 +32,7 @@
 @endpush
 
 @section('content')
-    @if (Auth::user()->isAdmin == 1)
+    @if (Auth::user()->is_admin == 1)
         <a href="/kategori/create" class="btn btn-info mb-3">Tambah Kategori</a>
     @endif
 
@@ -55,13 +55,16 @@
                                 <td>{{ $item->nama }}</td>
                                 <td>
 
-                                    @if (Auth::user()->isAdmin == 1)
+                                    @if (Auth::user()->is_admin == 1)
                                         <button class="btn btn-info"><a href="/kategori/{{ $item->id }}"
-                                                style="text-decoration: none; color:white;"><i class="fa-solid fa-circle-info"></i></a></button>
+                                                style="text-decoration: none; color:white;"><i
+                                                    class="fa-solid fa-circle-info"></i></a></button>
                                         <button class="btn btn-warning"><a href="/kategori/{{ $item->id }}/edit"
-                                                style="text-decoration: none;color:white"><i class="fa-solid fa-pen-to-square"></i></a></button>
+                                                style="text-decoration: none;color:white"><i
+                                                    class="fa-solid fa-pen-to-square"></i></a></button>
                                         <button class="btn btn-danger"><a data-toggle="modal"
-                                                data-target="#DeleteModal{{ $item->id }}"><i class="fa-solid fa-trash"></i></a></button>
+                                                data-target="#DeleteModal{{ $item->id }}"><i
+                                                    class="fa-solid fa-trash"></i></a></button>
 
                                         <!--Delete Modal -->
                                         <div class="modal fade" id="DeleteModal{{ $item->id }}" role="dialog"
@@ -81,11 +84,12 @@
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-outline-primary"
                                                             data-dismiss="modal">Cancel</button>
-                                                        <form action="/kategori/{{ $item->id }}" method="post" id="DeleteModal">
+                                                        <form action="/kategori/{{ $item->id }}" method="post"
+                                                            id="DeleteModal">
                                                             @csrf
                                                             @method('delete')
-                                                            <input type="submit"
-                                                             value="delete" class="btn btn-outline-danger">
+                                                            <input type="submit" value="delete"
+                                                                class="btn btn-outline-danger">
                                                         </form>
                                                     </div>
                                                 </div>
@@ -94,7 +98,7 @@
             </div>
             @endif
 
-            @if (Auth::user()->isAdmin == 0)
+            @if (Auth::user()->is_admin == 0)
                 <a href="/kategori/{{ $item->id }}" class="btn-sm btn-info px-3 py-2"
                     style="text-decoration: none;color:white">Detail</a>
             @endif

@@ -58,17 +58,20 @@
                                 <td>{{ $item->email }}</td>
                                 <td>
 
-                                    @if (Auth::user()->isAdmin == 1)
+                                    @if (Auth::user()->is_admin == 1)
                                         <button class="btn btn-info"><a href="/anggota/{{ $item->id }}"
-                                                style="text-decoration: none; color:white;"><i class="fa-solid fa-circle-info"></i></a></button>
+                                                style="text-decoration: none; color:white;"><i
+                                                    class="fa-solid fa-circle-info"></i></a></button>
                                         <button class="btn btn-warning"><a href="/anggota/{{ $item->id }}/edit"
-                                                style="text-decoration: none;color:white"><i class="fa-solid fa-pen-to-square"></i></a></button>
+                                                style="text-decoration: none;color:white"><i
+                                                    class="fa-solid fa-pen-to-square"></i></a></button>
                                         <button class="btn btn-danger"><a data-toggle="modal"
-                                                data-target="#DeleteModal{{ $item->id }}"><i class="fa-solid fa-trash"></i></a></button>
+                                                data-target="#DeleteModal{{ $item->id }}"><i
+                                                    class="fa-solid fa-trash"></i></a></button>
 
                                         <!--Delete Modal -->
-                                        <div class="modal fade" id="DeleteModal{{ $item->id }}" tabindex="-1" role="dialog"
-                                            aria-labelledby="ModalLabelDelete" aria-hidden="true">
+                                        <div class="modal fade" id="DeleteModal{{ $item->id }}" tabindex="-1"
+                                            role="dialog" aria-labelledby="ModalLabelDelete" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -97,7 +100,7 @@
             </div>
             @endif
 
-            @if (Auth::user()->isAdmin == 0)
+            @if (Auth::user()->is_admin == 0)
                 <a href="/kategori/{{ $item->id }}" class="btn-sm btn-info px-3 py-2">Detail</a>
             @endif
 
