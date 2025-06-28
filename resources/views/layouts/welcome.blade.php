@@ -26,6 +26,8 @@
 <body>
     <div class="header">
         <div class="inner-header flex">
+            <img class="d-none d-lg-block" src="{{ asset('assets/images/logo.png') }}" alt="Logo Bina Insan Madani"
+                height="120">
             <h1>e-Perpustakaan</h1>
             @yield('content')
         </div>
