@@ -30,6 +30,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $title = 'Dashboard';
         $iduser = Auth::id();
         $profile = Profile::where('user_id', $iduser)->first();
         $kategori = Kategori::count();
@@ -40,9 +41,9 @@ class HomeController extends Controller
         $pinjamanUser = Peminjaman::where('user_id', $iduser)->where('tanggal_pengembalian', null)->count();
 
         if (Auth::user()->is_admin == 1) {
-            return view('AdminDashboard', compact('kategori', 'buku', 'user', 'profile', 'riwayat_pinjam', 'jumlah_riwayat'));
+            return view('AdminDashboard', compact('title', 'kategori', 'buku', 'user', 'profile', 'riwayat_pinjam', 'jumlah_riwayat'));
         } else {
-            return view('AnggotaDashboard', compact('kategori', 'buku', 'profile', 'user', 'pinjamanUser'));
+            return view('AnggotaDashboard', compact('title', 'kategori', 'buku', 'profile', 'user', 'pinjamanUser'));
         }
     }
 }

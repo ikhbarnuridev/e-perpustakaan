@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link href="{{ asset('assets/images/logo.png') }}" rel="icon">
-    <title>Sistem Informasi Perpustakaan</title>
+    <title>{{ $title }} | {{ config('app.name', 'Laravel') }}</title>
 
     <!-- Favicons -->
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -98,18 +98,15 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-
     <script src="{{ asset('assets/template/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/template/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/tempate/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('assets/template/js/ruang-admin.min.js') }}"></script>
     <script src="{{ asset('assets/templte/js/demo/chart-area-demo.js') }}"></script>
 
-
     @stack('scripts')
 
     @include('sweetalert::alert')
-
 </body>
 
 </html>

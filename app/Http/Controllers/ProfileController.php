@@ -8,73 +8,61 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
-
-use File;
+use Illuminate\Support\Facades\File;
 
 class ProfileController extends Controller
 {
     public function index()
     {
-        $iduser = Auth::id();
-        $profile = Profile::where('user_id', $iduser)->first();
-        return view('profile.tampil', ['profile' => $profile]);
+        return view('profile.tampil', [
+            'title' => 'Profile',
+            'profile' => auth()->user()->profile
+        ]);
     }
 
     public function edit()
     {
-        $iduser = Auth::id();
-        $profile = Profile::where('user_id', $iduser)->first();
-        return view('profile.edit', ['profile' => $profile]);
+        return view('profile.edit', [
+            'title' => 'Edit Profile',
+            'profile' => auth()->user()->profile
+        ]);
     }
 
     public function update(request $request, $id)
     {
         $request->validate(
             [
-                'name' => 'required',
-                'npm' => 'required',
-                'prodi' => 'required',
-                'alamat' => 'required',
-                'noTelp' => 'required',
-                'photoProfile' => 'nullable|mimes:jpg,jpeg,png|max:2048'
-            ],
-            [
-                'name.required' => "Nama tidak boleh kosong",
-                'npm.required' => "Nomor Induk tidak boleh kosong",
-                'prodi.required' => "Prodi tidak boleh kosong",
-                'alamat.required' => "Alamat tidak boleh kosong",
-                'noTelp.required' => "Nomor Telepon tidak boleh kosong",
-                'photoProfile.mimes' => "Foto Profile Harus Berupa jpg,jpeg,atau png",
-                'photoProfile.max' => "ukuran gambar tidak boleh lebih dari 2048 MB"
+                'nama' => 'required',
+                'nis' => 'required',
+                'email' => 'required',
+                'foto' => 'nullable|mimes:jpg,jpeg,png|max:2048'
             ]
         );
+
         $iduser = Auth::id();
         $profile = Profile::where('user_id', $iduser)->first();
         $user = User::where('id', $iduser)->first();
 
-        if ($request->has('photoProfile')) {
-            $path = 'images/photoProifle';
+        if ($request->has('foto')) {
+            $path = 'images/foto/';
 
-            File::delete($path . $profile->photoProfile);
+            File::delete($path . $profile->foto);
 
-            $namaGambar = time() . '.' . $request->photoProfile->extension();
-
-            $request->photoProfile->move(public_path('images/photoProfile'), $namaGambar);
-
-            $profile->photoProfile = $namaGambar;
-
+            $namaGambar = time() . '.' . $request->foto->extension();
+            $request->foto->move(public_path('images/foto'), $namaGambar);
+            $profile->foto = $namaGambar;
             $profile->save();
         }
-        $user->name = $request->name;
-        $profile->npm = $request->npm;
-        $profile->prodi = $request->prodi;
-        $profile->alamat = $request->alamat;
-        $profile->noTelp = $request->noTelp;
 
-        $profile->save();
+        $user->nama = $request->nama;
+        $user->email = $request->email;
         $user->save();
 
+        $profile->nis = $request->nis;
+        $profile->save();
+
         Alert::success('Success', 'Berhasil Mengubah Profile');
+
         return redirect('/profile');
     }
 }

@@ -1,15 +1,15 @@
 <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/home">
-        <div class="sidebar-brand-icon">
-            <img src="{{ asset('/img/logo.png') }}">
+        <div class="sidebar-brand-icon d-none d-lg-block">
+            <img src="{{ asset('assets//images/logo.png') }}">
         </div>
-        <div class="sidebar-brand-text mx-3">Universitas Sangga Buana</div>
+        <div class="sidebar-brand-text ml-3">e-Perpustakaan</div>
     </a>
     <hr class="sidebar-divider my-0">
     <li class="nav-item">
         <a class="nav-link" href="/home">
             <i class="fa-solid fa-house"></i>
-            <span>Home</span></a>
+            <span>Dashboard</span></a>
     </li>
     <hr class="sidebar-divider">
     <div class="sidebar-heading">

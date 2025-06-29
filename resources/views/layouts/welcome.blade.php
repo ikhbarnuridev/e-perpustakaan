@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="{{ asset('assets/images/logo.png') }}" rel="icon">
-    <title>{{ $title }} | e-Perpustakaan</title>
+    <title>{{ $title }} | {{ config('app.name', 'Laravel') }}</title>
 
     <!-- Favicons -->
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
