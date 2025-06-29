@@ -9,7 +9,7 @@
 @endsection
 
 @section('judul')
-    <h2 class="text-primary"> Selamat Datang, {{ Auth::user()->name }}</h2>
+    <h1 class="text-primary" style="font-weight: bold; font-size: 28px;"> Selamat Datang, {{ Auth::user()->nama }}</h1>
 @endsection
 
 @section('content')

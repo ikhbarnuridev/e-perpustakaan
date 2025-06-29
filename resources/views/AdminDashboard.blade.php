@@ -10,7 +10,7 @@
 @endsection
 
 @section('judul')
-    <h1 class="text-primary">Dashboard</h1>
+    <h1 class="text-primary" style="font-weight: bold; font-size: 28px;">Dashboard</h1>
 @endsection
 
 @push('styles')
@@ -106,41 +106,41 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Table-->
-    <h1 class="text-primary"> Riwayat Peminjaman</h1>
-    <div class="col-lg-auto">
-        <div class="card mb-4">
-            <div class="table-responsive p-3">
-                <table class="table align-items-center justify-content-center table-flush table-hover" id="dataTableHover"
-                    style="font-size:.7rem">
-                    <thead class="thead-light">
-                        <tr>
-                            <th scope="col">No.</th>
-                            <th scope="col">Nama</th>
-                            <th scope="col">Judul Buku</th>
-                            <th scope="col">Kode Buku</th>
-                            <th scope="col">Tanggal Pinjam</th>
-                            <th scope="col">Tanggal Wajib Pengembalian</th>
-                            <th scope="col">Tanggal Pengembalian</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($riwayat_pinjam as $item)
+        <!-- Table-->
+        <div class="col-12">
+            <h2 class="text-primary mb-4" style="font-weight: bold; font-size: 28px;">Riwayat Peminjaman</h2>
+            <div class="card mb-4">
+                <div class="table-responsive p-3">
+                    <table class="table align-items-center justify-content-center table-flush table-hover"
+                        id="dataTableHover" style="font-size:.7rem">
+                        <thead class="thead-light">
                             <tr>
-                                <th scope="row">{{ $loop->iteration }}</th>
-                                <td>{{ $item->user->name }}</td>
-                                <td>{{ $item->buku->judul }}</td>
-                                <td>{{ $item->buku->kode_buku }}</td>
-                                <td>{{ $item->tanggal_pinjam }}</td>
-                                <td>{{ $item->tanggal_wajib_kembali }}</td>
-                                <td>{{ $item->tanggal_pengembalian }}</td>
+                                <th scope="col">No.</th>
+                                <th scope="col">Nama</th>
+                                <th scope="col">Judul Buku</th>
+                                <th scope="col">Kode Buku</th>
+                                <th scope="col">Tanggal Pinjam</th>
+                                <th scope="col">Tanggal Wajib Pengembalian</th>
+                                <th scope="col">Tanggal Pengembalian</th>
                             </tr>
-                        @empty
-                        @endforelse
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @forelse ($riwayat_pinjam as $item)
+                                <tr>
+                                    <th scope="row">{{ $loop->iteration }}</th>
+                                    <td>{{ $item->user->name }}</td>
+                                    <td>{{ $item->buku->judul }}</td>
+                                    <td>{{ $item->buku->kode_buku }}</td>
+                                    <td>{{ $item->tanggal_pinjam }}</td>
+                                    <td>{{ $item->tanggal_wajib_kembali }}</td>
+                                    <td>{{ $item->tanggal_pengembalian }}</td>
+                                </tr>
+                            @empty
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

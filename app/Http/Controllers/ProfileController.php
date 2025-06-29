@@ -61,7 +61,7 @@ class ProfileController extends Controller
         $profile->nis = $request->nis;
         $profile->save();
 
-        Alert::success('Success', 'Berhasil Mengubah Profile');
+        Alert::success('Sukses', 'Berhasil Mengubah Profile');
 
         return redirect('/profile');
     }

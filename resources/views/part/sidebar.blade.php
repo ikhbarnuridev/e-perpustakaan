@@ -5,55 +5,41 @@
         </div>
         <div class="sidebar-brand-text ml-3">e-Perpustakaan</div>
     </a>
+
     <hr class="sidebar-divider my-0">
-    <li class="nav-item">
+
+    <li class="nav-item {{ request()->is('home') ? 'active' : '' }}">
         <a class="nav-link" href="/home">
             <i class="fa-solid fa-house"></i>
             <span>Dashboard</span></a>
     </li>
-    <hr class="sidebar-divider">
-    <div class="sidebar-heading">
-        Features
 
-    </div>
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap"
-            aria-expanded="true" aria-controls="collapseBootstrap">
+    <li class="nav-item {{ request()->is('buku*') ? 'active' : '' }}">
+        <a class="nav-link" href="/buku">
             <i class="fa-solid fa-book"></i>
-            <span>Buku</span>
-        </a>
-        <div id="collapseBootstrap" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Buku</h6>
-                <a class="collapse-item" href="/buku">Lihat Semua Buku</a>
-
-                @if (Auth::user()->is_admin == 1)
-                    <a class="collapse-item" href="/buku/create">Tambah Buku</a>
-                @endif
-
-            </div>
-        </div>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseForm"
-            aria-expanded="true" aria-controls="collapseForm">
-            <i class="fa-solid fa-book-open"></i>
-            <span>Kategori</span>
-        </a>
-        <div id="collapseForm" class="collapse" aria-labelledby="headingForm" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Kategori</h6>
-                <a class="collapse-item" href="/kategori">Lihat Kategori</a>
-
-                @if (Auth::user()->is_admin == 1)
-                    <a class="collapse-item" href="/kategori/create">Tambah Kategori</a>
-                @endif
-
-            </div>
-        </div>
+            <span>Koleksi Buku</span></a>
     </li>
 
     @if (Auth::user()->is_admin == 1)
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseForm"
+                aria-expanded="true" aria-controls="collapseForm">
+                <i class="fa-solid fa-book-open"></i>
+                <span>Kategori</span>
+            </a>
+            <div id="collapseForm" class="collapse" aria-labelledby="headingForm" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Kategori</h6>
+                    <a class="collapse-item" href="/kategori">Lihat Kategori</a>
+
+                    @if (Auth::user()->is_admin == 1)
+                        <a class="collapse-item" href="/kategori/create">Tambah Kategori</a>
+                    @endif
+
+                </div>
+            </div>
+        </li>
+
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable"
                 aria-expanded="true" aria-controls="collapseTable">

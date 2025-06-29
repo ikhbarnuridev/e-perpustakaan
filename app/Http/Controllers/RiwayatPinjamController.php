@@ -27,6 +27,7 @@ class RiwayatPinjamController extends Controller
         $profile = Profile::where('user_id', $iduser)->first();
         $peminjam = Peminjaman::with(['user', 'buku'])->orderBy('updated_at', 'desc')->get();
         $pinjamanUser = Peminjaman::where('user_id', $iduser)->get();
+
         return view('peminjaman.tampil', ['profile' => $profile, 'peminjam' => $peminjam, 'pinjamanUser' => $pinjamanUser]);
     }
 
@@ -48,9 +49,13 @@ class RiwayatPinjamController extends Controller
             $peminjam = $profile;
         }
 
-
-
-        return view('peminjaman.tambah', ['profile' => $profile, 'users' => $user, 'buku' => $buku, 'peminjam' => $peminjam]);
+        return view('peminjaman.tambah', [
+            'title' => 'dasdada',
+            'profile' => $profile,
+            'users' => $user,
+            'buku' => $buku,
+            'peminjam' => $peminjam
+        ]);
     }
     /**
      * Store a newly created resource in storage.

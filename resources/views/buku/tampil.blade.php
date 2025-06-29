@@ -9,7 +9,7 @@
 @endsection
 
 @section('judul')
-    <h1 class="text-primary">Daftar Buku</h1>
+    <h1 class="text-primary" style="font-weight: bold; font-size: 28px;">Koleksi Buku</h1>
 @endsection
 
 @section('content')
@@ -30,32 +30,31 @@
     </form>
 
     <div class="card container-fluid mb-3">
-
-        <div class="row d-flex flex-wrap justify-content-center">
-
+        <div class="row d-flex flex-wrap justify-content-left m-4">
             @forelse ($buku as $item)
-                <div class="col-auto my-2" style="width:18rem;">
-                    <div class="card mx-2 my-2" style="min-height:28rem;">
+                <div class="col-12 col-lg-3 mb-4" style="width:18rem;">
+                    <div class="card mx-2 my-2 h-100" style="min-height:28rem;">
                         @if ($item->gambar != null)
-                            <img class="card-img-top" style="max-height:180px;" src="{{ asset('/images/' . $item->gambar) }}">
+                            <img class="card-img-top" style="max-height:180px;"
+                                src="{{ asset('images/' . $item->gambar) }}">
                         @else
-                            <img class="card-img-top" style="height:200px;" src="{{ asset('/images/noImage.jpg') }}">
+                            <img class="card-img-top" style="height:200px;" src="{{ asset('assets/images/no-image.jpg') }}">
                         @endif
                         <div class="card-body d-flex flex-column justify-content-between">
                             <div class="detai-buku">
                                 <h5 class="card-title text-primary"><a
                                         href="/buku/{{ $item->id }}"style="text-decoration: none; font-size:1rem;font-weight:bold;">
                                         {{ $item->judul }}</a></h5>
-                                <p class = "cart-text m-0">Kode Buku : {{ $item->kode_buku }}</p>
+                                <p class = "cart-text m-0">Kode Buku : {{ $item->kode }}</p>
                                 <p class="card-text m-0">Pengarang : <a href="#"
                                         style="text-decoration: none;">{{ $item->pengarang }}</a></p>
                                 <p class="card-text m-0">Kategori : </p>
                                 <p class="text-primary">
-                                    @foreach ($item->kategori_buku as $kategori )
-                                    {{ $kategori->nama, }},
+                                    @foreach ($item->kategori_buku as $kategori)
+                                        {{ $kategori->nama }},
                                     @endforeach
-                            </p>
-                                <p class="card-text m-0">Status : {{$item->status  }}</p>
+                                </p>
+                                <p class="card-text m-0">Status : {{ $item->status }}</p>
                             </div>
                             @if (Auth::user()->is_admin == 1)
                                 <div class="button-area">
@@ -71,9 +70,9 @@
                             @if (Auth::user()->is_admin == 0)
                                 <div class="button-area">
                                     <button class="btn-sm btn-info px-2"> <a href="/buku/{{ $item->id }}"
-                                    style="text-decoration: none; color:white;">Detail</a></button>
+                                            style="text-decoration: none; color:white;">Detail</a></button>
                                     <button class="btn-sm btn-danger px-4"><a a href="/peminjaman/create"
-                                    style="text-decoration: none; color:white;">Pinjam Buku</a></button>
+                                            style="text-decoration: none; color:white;">Pinjam Buku</a></button>
                                 </div>
                             @endif
 
@@ -104,15 +103,12 @@
                                     </div>
                                 </div>
                             </div>
-
-                            </form>
                         </div>
                     </div>
                 </div>
             @empty
                 <h1 class="text-primary mt-3">Tidak ada buku</h1>
             @endforelse
-
         </div>
 
         <div class="d-flex justify-content-between mx-2 my-2">

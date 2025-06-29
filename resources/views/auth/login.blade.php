@@ -14,7 +14,7 @@
                                 <div class="card-header text-lg text-dark">{{ __('Login') }}</div>
                                 <div class="card-body">
                                     <form method="POST" action="{{ route('login') }}"
-                                        {{ env('APP_ENV') != 'production' ? 'novalidate' : '' }}>>
+                                        {{ env('APP_ENV') != 'production' ? 'novalidate' : '' }}>
                                         @csrf
                                         <div class="row mb-3">
                                             <label for="username"

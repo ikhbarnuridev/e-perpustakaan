@@ -9,7 +9,7 @@
 @endsection
 
 @section('judul')
-    <h1 class="text-primary">Tambah Buku</h1>
+    <h1 class="text-primary" style="font-weight: bold; font-size: 28px;">Tambah Buku</h1>
 @endsection
 
 @push('styles')
@@ -19,81 +19,109 @@
 
 @section('content')
     <div class="card mb-4">
-        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">Form Tambah Buku</h6>
-        </div>
         <div class="card-body">
             <form action="/buku" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group mb-3">
                     <label for="Judul"class="text-primary font-weight-bold"> Judul Buku</label>
-                    <input type="text" name="judul" class="form-control" value="{{ old('judul') }}">
-                </div>
+                    <input type="text" name="judul" class="form-control @error('judul') is-invalid @enderror"
+                        value="{{ old('judul') }}">
 
-                @error('judul')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
+                    @error('judul')
+                        <span class="invalid-feedback text-left" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
 
                 <div class="form-group mb-3">
-                    <label for="kode_buku"class="text-primary font-weight-bold"> Kode Buku</label>
-                    <input type="text" name="kode_buku" class="form-control" value="{{ old('kode_buku') }}">
-                </div>
+                    <label for="kode"class="text-primary font-weight-bold"> Kode Buku</label>
+                    <input type="text" name="kode" class="form-control @error('kode') is-invalid @enderror"
+                        value="{{ old('kode') }}">
 
-                @error('kode_buku')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
+                    @error('kode')
+                        <span class="invalid-feedback text-left" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
 
                 <div class="form-group mb-3">
                     <label for="kategori" class="text-primary font-weight-bold">Kategori</label>
-                    <select class="form-control" name="kategori_buku[]" id="multiselect" multiple="multiple">
+                    <select class="form-control @error('kategori') is-invalid @enderror" name="kategori[]" id="multiselect"
+                        multiple="multiple">
                         @forelse ($kategori as $item)
                             <option value="{{ $item->id }}">{{ $item->nama }}</option>
                         @empty
                             tidak ada kategori
                         @endforelse
-
                     </select>
-                </div>
 
-                @error('kategori')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
+                    @error('kategori')
+                        <span class="invalid-feedback text-left" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
 
                 <div class="form-group mb-3">
                     <label for="pengarang" class="text-primary font-weight-bold">Pengarang</label>
-                    <input type="text" name="pengarang" class="form-control" value="{{ old('pengarang') }}">
-                </div>
+                    <input type="text" name="pengarang" class="form-control @error('pengarang') is-invalid @enderror"
+                        value="{{ old('pengarang') }}">
 
-                @error('pengarang')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
+                    @error('pengarang')
+                        <span class="invalid-feedback text-left" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
 
                 <div class="form-group mb-3">
                     <label for="penerbit" class="text-primary font-weight-bold">Penerbit</label>
-                    <input type="text" name="penerbit" class="form-control" value="{{ old('penerbit') }}">
-                </div>
+                    <input type="text" name="penerbit" class="form-control @error('penerbit') is-invalid @enderror"
+                        value="{{ old('penerbit') }}">
 
-                @error('penerbit')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
+                    @error('penerbit')
+                        <span class="invalid-feedback text-left" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
 
                 <div class="form-group mb-3">
                     <label for="tahun_terbit"class="text-primary font-weight-bold">Tahun Terbit</label>
-                    <input type="text" name="tahun_terbit" value="{{ old('tahun_terbit') }}"class="form-control">
+                    <input type="text" name="tahun_terbit" value="{{ old('tahun_terbit') }}"
+                        class="form-control @error('tahun_terbit') is-invalid @enderror">
+
+                    @error('tahun_terbit')
+                        <span class="invalid-feedback text-left" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
 
-                @error('tahun_terbit')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
+                <div class="form-group mb-3">
+                    <label for="jumlah"class="text-primary font-weight-bold">Jumlah</label>
+                    <input type="number" name="jumlah" value="{{ old('jumlah') }}"
+                        class="form-control @error('jumlah') is-invalid @enderror">
+
+                    @error('jumlah')
+                        <span class="invalid-feedback text-left" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
 
                 <div class="form-group mb-3">
                     <label for="deskripsi"class="text-primary font-weight-bold">Deskripsi</label>
-                    <textarea class="form-control" name="deskripsi" rows="2">{{ old('deskripsi') }}</textarea>
-                </div>
+                    <textarea class="form-control @error('deskripsi') is-invalid @enderror" name="deskripsi" rows="2">{{ old('deskripsi') }}</textarea>
 
-                @error('deskripsi')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
+                    @error('deskripsi')
+                        <span class="invalid-feedback text-left" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
 
                 <div class="form-group">
                     <label for="gambar" class="text-primary font-weight-bold">Tambah Sampul Buku</label>

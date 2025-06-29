@@ -20,6 +20,7 @@ class CreateBukuTable extends Migration
             $table->string('pengarang');
             $table->string('penerbit');
             $table->string('tahun_terbit');
+            $table->unsignedInteger('jumlah')->default(0);
             $table->text('deskripsi');
             $table->string('gambar')->nullable();
             $table->string('status')->default('In Stock');

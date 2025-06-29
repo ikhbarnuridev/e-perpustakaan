@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use File;
 use App\Models\Buku;
 use App\Models\Profile;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class BukuController extends Controller
@@ -21,13 +21,19 @@ class BukuController extends Controller
     public function index(Request $request)
     {
         if ($request->has('search')) {
-            $buku = Buku::where('judul', 'like', '%' . $request->search . '%')->paginate(6);
+            $buku = Buku::where('judul', 'like', '%' . $request->search . '%')->paginate(8);
         } else {
-            $buku = Buku::paginate(6);
+            $buku = Buku::paginate(8);
         }
+
         $iduser = Auth::id();
         $profile = Profile::where('user_id', $iduser)->first();
-        return view('buku.tampil', ['buku' => $buku, 'profile' => $profile]);
+
+        return view('buku.tampil', [
+            'title' => 'Koleksi Buku',
+            'buku' => $buku,
+            'profile' => $profile
+        ]);
     }
 
     /**
@@ -41,7 +47,13 @@ class BukuController extends Controller
         $buku = Buku::all();
         $iduser = Auth::id();
         $profile = Profile::where('user_id', $iduser)->first();
-        return view('buku.tambah', ['buku' => $buku, 'profile' => $profile, 'kategori' => $kategori]);
+
+        return view('buku.tambah', [
+            'title' => 'Tambah Buku',
+            'buku' => $buku,
+            'profile' => $profile,
+            'kategori' => $kategori
+        ]);
     }
 
     /**
@@ -55,26 +67,15 @@ class BukuController extends Controller
         $request->validate(
             [
                 'judul' => 'required',
-                'kode_buku' => 'required|unique:buku',
-                'kategori_buku' => 'required',
+                'kode' => 'required|unique:buku',
+                'kategori' => 'required',
                 'pengarang' => 'required',
                 'penerbit' => 'required',
                 'tahun_terbit' => 'required',
+                'jumlah' => 'required',
                 'deskripsi' => 'required',
                 'gambar' => 'nullable|mimes:jpg,jpeg,png|max:2048',
-            ],
-            [
-                'judul.required' => 'judul tidak boleh kosong',
-                'kode_buku.required' => 'Kode Buku Tidak Boleh Kosong',
-                'kode_buku.unique' => 'Kode Buku Telah Tersedia',
-                'kategori_buku.required' => 'Harap masukan kategori',
-                'pengarang.required' => 'pengarang tidak boleh kosong',
-                'penerbit.requiered' => 'penerbit tidak boleh kosong',
-                'tahun_terbit.required' => 'harap isi tahun terbit',
-                'deskripsi.required' => 'deskripsi tidak boleh kosong',
-                'gambar.mimes' => 'Gambar Harus Berupa jpg,jpeg,atau png',
-                'gambar.max' => 'ukuran gambar tidak boleh lebih dari 2048 MB',
-            ],
+            ]
         );
 
         if ($request->hasFile('gambar')) {
@@ -83,20 +84,23 @@ class BukuController extends Controller
 
             $buku = Buku::create([
                 'judul' => $request['judul'],
-                'kode_buku' => $request['kode_buku'],
+                'kode' => $request['kode'],
                 'pengarang' => $request['pengarang'],
                 'penerbit' => $request['penerbit'],
                 'tahun_terbit' => $request['tahun_terbit'],
+                'jumlah' => $request['jumlah'],
                 'deskripsi' => $request['deskripsi'],
                 'gambar' => $nama_gambar
             ]);
-            $buku->kategori_buku()->sync($request->kategori_buku);
+
+            $buku->kategori_buku()->sync($request->kategori);
         } else {
             $buku = Buku::create($request->all());
-            $buku->kategori_buku()->sync($request->kategori_buku);
+            $buku->kategori_buku()->sync($request->kategori);
         }
 
         Alert::success('Berhasil', 'Berhasil Menambakan Data Buku');
+
         return redirect('/buku');
     }
 
@@ -111,7 +115,12 @@ class BukuController extends Controller
         $buku = Buku::find($id);
         $iduser = Auth::id();
         $profile = Profile::where('user_id', $iduser)->first();
-        return view('buku.detail', ['buku' => $buku, 'profile' => $profile]);
+
+        return view('buku.detail', [
+            'title' => 'Detail Buku',
+            'buku' => $buku,
+            'profile' => $profile
+        ]);
     }
 
     /**
@@ -126,7 +135,13 @@ class BukuController extends Controller
         $kategori = Kategori::all();
         $profile = Profile::where('user_id', $iduser)->first();
         $buku = Buku::find($id);
-        return view('buku.edit', ['buku' => $buku, 'profile' => $profile, 'kategori' => $kategori]);
+
+        return view('buku.edit', [
+            'title' => 'Edit Buku',
+            'buku' => $buku,
+            'profile' => $profile,
+            'kategori' => $kategori
+        ]);
     }
 
     /**
@@ -143,20 +158,13 @@ class BukuController extends Controller
         $request->validate(
             [
                 'judul' => 'required',
+                'kode' => 'required',
                 'pengarang' => 'required',
                 'penerbit' => 'required',
                 'tahun_terbit' => 'required',
+                'jumlah' => 'required',
                 'deskripsi' => 'required',
                 'gambar' => 'nullable|mimes:jpg,jpeg,png|max:2048',
-            ],
-            [
-                'judul.required' => 'judul tidak boleh kosong',
-                'pengarang.required' => 'pengarang tidak boleh kosong',
-                'penerbit.requiered' => 'penerbit tidak boleh kosong',
-                'tahun_terbit.required' => 'harap isi tahun terbit',
-                'deskripsi.required' => 'deskripsi tidak boleh kosong',
-                'gambar.mimes' => 'Gambar Harus Berupa jpg,jpeg,atau png',
-                'gambar.max' => 'ukuran gambar tidak boleh lebih dari 2048 MB',
             ],
         );
 
@@ -165,23 +173,23 @@ class BukuController extends Controller
             File::delete($path . $buku->gambar);
 
             $nama_gambar = time() . '.' . $request->gambar->extension();
-
             $request->gambar->move(public_path('images'), $nama_gambar);
 
             $buku->gambar = $nama_gambar;
-
-            $buku->kategori_buku()->sync($request->kategori_buku);
+            $buku->kategori_buku()->sync($request->kategori);
             $buku->save();
         }
+
         $buku->judul = $request->judul;
         $buku->pengarang = $request->pengarang;
         $buku->penerbit = $request->penerbit;
         $buku->tahun_terbit = $request->tahun_terbit;
         $buku->deskripsi = $request->deskripsi;
-        $buku->kategori_buku()->sync($request->kategori_buku);
+        $buku->kategori_buku()->sync($request->kategori);
         $buku->save();
 
         Alert::success('Berhasil', 'Update Berhasil');
+
         return redirect('/buku');
     }
 
@@ -198,6 +206,7 @@ class BukuController extends Controller
         $buku->delete();
 
         Alert::success('Berhasil', 'Buku Berhasil Terhapus');
+
         return redirect('buku');
     }
 }
