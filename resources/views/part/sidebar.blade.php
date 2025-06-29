@@ -21,23 +21,10 @@
     </li>
 
     @if (Auth::user()->is_admin == 1)
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseForm"
-                aria-expanded="true" aria-controls="collapseForm">
+        <li class="nav-item {{ request()->is('kategori*') ? 'active' : '' }}">
+            <a class="nav-link" href="/kategori">
                 <i class="fa-solid fa-book-open"></i>
-                <span>Kategori</span>
-            </a>
-            <div id="collapseForm" class="collapse" aria-labelledby="headingForm" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Kategori</h6>
-                    <a class="collapse-item" href="/kategori">Lihat Kategori</a>
-
-                    @if (Auth::user()->is_admin == 1)
-                        <a class="collapse-item" href="/kategori/create">Tambah Kategori</a>
-                    @endif
-
-                </div>
-            </div>
+                <span>Kategori</span></a>
         </li>
 
         <li class="nav-item">

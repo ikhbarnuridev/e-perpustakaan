@@ -9,7 +9,7 @@
 @endsection
 
 @section('judul')
-    <h2 class="text-primary">Daftar Kategori</h2>
+    <h1 class="text-primary" style="font-weight: bold; font-size: 28px;">Daftar Kategori</h1>
 @endsection
 
 @push('styles')
@@ -17,100 +17,92 @@
         href="https://cdn.datatables.net/v/bs4/dt-1.12.1/date-1.1.2/fc-4.1.0/r-2.3.0/sc-2.0.7/datatables.min.css" />
 @endpush
 
-
 @push('scripts')
-    <script src="{{ '/template/vendor/datatables/jquery.dataTables.min.js' }}"></script>
-    <script src="{{ '/template/vendor/datatables/dataTables.bootstrap4.min.js' }}"></script>
+    <script src="{{ asset('/template/vendor/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('/template/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
 
-    <!-- Page level custom scripts -->
     <script>
         $(document).ready(function() {
-            $('#dataTable').DataTable(); // ID From dataTable
-            $('#dataTableHover').DataTable(); // ID From dataTable with Hover
+            $('#dataTableHover').DataTable();
         });
     </script>
 @endpush
 
 @section('content')
-    @if (Auth::user()->is_admin == 1)
-        <a href="/kategori/create" class="btn btn-info mb-3">Tambah Kategori</a>
+    @if (Auth::user()->is_admin)
+        <a href="{{ route('kategori.create') }}" class="btn btn-info mb-3">Tambah Kategori</a>
     @endif
 
-    <div class="col-lg-auto">
+    <div class="col-12 p-0">
         <div class="card mb-4">
-
-            <div class="table-responsive p-3">
+            <div class="table-responsive">
                 <table class="table align-items-center table-flush table-hover" id="dataTableHover">
                     <thead class="thead-light">
                         <tr>
-                            <th scope="col">No.</th>
+                            <th scope="col" class="text-center" width="5%">No.</th>
                             <th scope="col">Nama Kategori</th>
-                            <th scope="col">Tombol Aksi</th>
+                            <th scope="col" class="text-center" width="15%">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($kategori as $key => $item)
                             <tr>
-                                <th scope="row">{{ $key + 1 }}</th>
+                                <th class="text-center">{{ $key + 1 }}</th>
                                 <td>{{ $item->nama }}</td>
-                                <td>
+                                <td class="text-center text-nowrap">
+                                    @if (Auth::user()->is_admin)
+                                        <a href="{{ route('kategori.show', $item->id) }}" class="btn btn-info text-white">
+                                            <i class="fa-solid fa-circle-info"></i>
+                                        </a>
+                                        <a href="{{ route('kategori.edit', $item->id) }}"
+                                            class="btn btn-warning text-white">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </a>
+                                        <button class="btn btn-danger" data-toggle="modal"
+                                            data-target="#DeleteModal{{ $item->id }}">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
 
-                                    @if (Auth::user()->is_admin == 1)
-                                        <button class="btn btn-info"><a href="/kategori/{{ $item->id }}"
-                                                style="text-decoration: none; color:white;"><i
-                                                    class="fa-solid fa-circle-info"></i></a></button>
-                                        <button class="btn btn-warning"><a href="/kategori/{{ $item->id }}/edit"
-                                                style="text-decoration: none;color:white"><i
-                                                    class="fa-solid fa-pen-to-square"></i></a></button>
-                                        <button class="btn btn-danger"><a data-toggle="modal"
-                                                data-target="#DeleteModal{{ $item->id }}"><i
-                                                    class="fa-solid fa-trash"></i></a></button>
-
-                                        <!--Delete Modal -->
-                                        <div class="modal fade" id="DeleteModal{{ $item->id }}" role="dialog"
-                                            aria-labelledby="ModalLabelDelete" aria-hidden="true">
+                                        <!-- Delete Modal -->
+                                        <div class="modal fade" id="DeleteModal{{ $item->id }}" tabindex="-1"
+                                            role="dialog" aria-labelledby="ModalLabelDelete" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="ModalLabelDelete">Ohh No!</h5>
+                                                        <h5 class="modal-title">Konfirmasi Hapus</h5>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <p>Are you sure you want to delete?</p>
+                                                        <p>Apakah Anda yakin ingin menghapus kategori ini?</p>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-outline-primary"
-                                                            data-dismiss="modal">Cancel</button>
-                                                        <form action="/kategori/{{ $item->id }}" method="post"
-                                                            id="DeleteModal">
+                                                            data-dismiss="modal">Batal</button>
+                                                        <form action="{{ route('kategori.destroy', $item->id) }}"
+                                                            method="POST">
                                                             @csrf
-                                                            @method('delete')
-                                                            <input type="submit" value="delete"
-                                                                class="btn btn-outline-danger">
+                                                            @method('DELETE')
+                                                            <button type="submit"
+                                                                class="btn btn-outline-danger">Hapus</button>
                                                         </form>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                    @endif
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="3" class="text-center">Tidak ada data kategori.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
-            @endif
-
-            @if (Auth::user()->is_admin == 0)
-                <a href="/kategori/{{ $item->id }}" class="btn-sm btn-info px-3 py-2"
-                    style="text-decoration: none;color:white">Detail</a>
-            @endif
-
-            </form>
-            </td>
-            </tr>
-        @empty
-            @endforelse
-            </tbody>
-            </table>
         </div>
-    </div>
     </div>
 @endsection
