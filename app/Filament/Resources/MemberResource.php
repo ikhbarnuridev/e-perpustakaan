@@ -2,9 +2,11 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\UserResource\Pages;
+use App\Filament\Resources\MemberResource\Pages;
+use App\Filament\Resources\MemberResource\RelationManagers;
+use App\Models\Member;
 use App\Models\User;
-use Filament\Forms\Components\Select;
+use Filament\Forms;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,11 +15,11 @@ use Filament\Tables;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
-use STS\FilamentImpersonate\Tables\Actions\Impersonate;
 
-class UserResource extends Resource
+class MemberResource extends Resource
 {
     protected static ?string $model = User::class;
 
@@ -25,12 +27,12 @@ class UserResource extends Resource
 
     public static function getLabel(): ?string
     {
-        return __('User');
+        return __('Member');
     }
 
     public static function getNavigationGroup(): ?string
     {
-        return __('filament-shield::filament-shield.nav.group');
+        return __('Member Management');
     }
 
     public static function form(Form $form): Form
@@ -53,11 +55,12 @@ class UserResource extends Resource
                     ->required()
                     ->maxLength(255)
                     ->unique(ignoreRecord: true),
-                Select::make('roles')
-                    ->relationship('roles', 'name', fn(Builder $query) => $query->where('name', '!=', 'Admin'))
+                TextInput::make('nis')
+                    ->label(__('NIS'))
                     ->required()
-                    ->multiple()
-                    ->preload(),
+                    ->length(10)
+                    ->numeric()
+                    ->unique(ignoreRecord: true),
                 TextInput::make('password')
                     ->label(__('filament-panels::pages/auth/register.form.password.label'))
                     ->password()
@@ -81,20 +84,18 @@ class UserResource extends Resource
     {
         return $table
             ->modifyQueryUsing(
-                fn(Builder $query) => $query->whereDoesntHave('roles', function ($subQuery) {
-                    $subQuery->where('name', 'Admin');
-                })
+                fn(Builder $query) => $query->whereRelation('roles', 'name', 'Member')
             )
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('username')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('roles.name')
-                    ->badge(),
-                Tables\Columns\TextColumn::make('email_verified_at')
-                    ->dateTime()
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('nis')
+                    ->label(__('NIS'))
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -112,12 +113,11 @@ class UserResource extends Resource
                 //
             ])
             ->actions([
-                Impersonate::make(),
                 ActionGroup::make([
                     Tables\Actions\EditAction::make()
                         ->modalWidth(MaxWidth::Medium),
                     Tables\Actions\DeleteAction::make(),
-                ]),
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -130,7 +130,7 @@ class UserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageUsers::route('/'),
+            'index' => Pages\ManageMembers::route('/'),
         ];
     }
 }

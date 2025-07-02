@@ -15,9 +15,8 @@ class ManageUsers extends ManageRecords
     {
         return [
             Actions\CreateAction::make()
-                ->icon('heroicon-o-plus')
                 ->modalWidth(MaxWidth::Medium)
-                ->after(fn ($record) => $record->markEmailAsVerified()),
+                ->after(fn($record) => $record->markEmailAsVerified()),
         ];
     }
 }

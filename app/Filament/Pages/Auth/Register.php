@@ -79,7 +79,7 @@ class Register extends BaseRegister
             ->required()
             ->length(10)
             ->numeric()
-            ->unique($this->getUserModel());
+            ->unique();
     }
 
     protected function mutateFormDataBeforeRegister(array $data): array
