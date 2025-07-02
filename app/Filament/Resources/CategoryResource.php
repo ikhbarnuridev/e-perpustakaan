@@ -11,6 +11,7 @@ use Filament\Support\Enums\MaxWidth;
 use Filament\Tables;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class CategoryResource extends Resource
 {
@@ -45,6 +46,7 @@ class CategoryResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn (Builder $query) => $query->withCount('books'))
             ->columns([
                 Tables\Columns\TextColumn::make('index')
                     ->label('No')
@@ -53,6 +55,10 @@ class CategoryResource extends Resource
                     ->width('1%'),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('books_count')
+                    ->label('Jumlah Buku')
+                    ->alignCenter()
+                    ->sortable(),
             ])
             ->filters([
                 //

@@ -87,7 +87,8 @@ class BookResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('categories.name')   // Kategori
                     ->label('Kategori')
-                    ->badge(),
+                    ->badge()
+                    ->limitList(),
                 Tables\Columns\TextColumn::make('author')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('year_published')
@@ -97,7 +98,8 @@ class BookResource extends Resource
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('stock')
-                    ->alignCenter(),
+                    ->alignCenter()
+                    ->sortable(),
             ])
             ->filters([
                 //
