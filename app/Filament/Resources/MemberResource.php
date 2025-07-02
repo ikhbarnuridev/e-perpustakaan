@@ -83,6 +83,11 @@ class MemberResource extends Resource
                 fn (Builder $query) => $query->whereRelation('roles', 'name', 'Member')
             )
             ->columns([
+                Tables\Columns\TextColumn::make('index')
+                    ->label('No')
+                    ->rowIndex()
+                    ->alignCenter()
+                    ->width('1%'),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('username')

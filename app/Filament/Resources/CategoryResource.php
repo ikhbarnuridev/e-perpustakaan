@@ -3,9 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CategoryResource\Pages;
-use App\Filament\Resources\CategoryResource\RelationManagers;
 use App\Models\Category;
-use Filament\Forms;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,8 +11,6 @@ use Filament\Support\Enums\MaxWidth;
 use Filament\Tables;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class CategoryResource extends Resource
 {
@@ -50,6 +46,11 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('index')
+                    ->label('No')
+                    ->rowIndex()
+                    ->alignCenter()
+                    ->width('1%'),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
             ])
@@ -61,7 +62,7 @@ class CategoryResource extends Resource
                     Tables\Actions\EditAction::make()
                         ->modalWidth(MaxWidth::Medium),
                     Tables\Actions\DeleteAction::make(),
-                ])
+                ]),
 
             ])
             ->bulkActions([
