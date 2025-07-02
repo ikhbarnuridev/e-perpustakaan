@@ -31,6 +31,7 @@ class AppPanelProvider extends PanelProvider
             ->path('app')
             ->login(Login::class)
             ->registration(Register::class)
+            ->breadcrumbs(false)
             ->colors([
                 'primary' => Color::Amber,
             ])

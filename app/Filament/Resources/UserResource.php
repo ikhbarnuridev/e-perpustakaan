@@ -10,9 +10,12 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Support\Enums\MaxWidth;
 use Filament\Tables;
+use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
+use STS\FilamentImpersonate\Tables\Actions\Impersonate;
 
 class UserResource extends Resource
 {
@@ -77,6 +80,11 @@ class UserResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(
+                fn (Builder $query) => $query->whereDoesntHave('roles', function ($subQuery) {
+                    $subQuery->where('name', 'Admin');
+                })
+            )
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
@@ -104,9 +112,12 @@ class UserResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make()
-                    ->modalWidth(MaxWidth::Medium),
-                Tables\Actions\DeleteAction::make(),
+                Impersonate::make(),
+                ActionGroup::make([
+                    Tables\Actions\EditAction::make()
+                        ->modalWidth(MaxWidth::Medium),
+                    Tables\Actions\DeleteAction::make(),
+                ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
