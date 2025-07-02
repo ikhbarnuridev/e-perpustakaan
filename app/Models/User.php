@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use Filament\Models\Contracts\HasAvatar;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasAvatar
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, HasRoles, Notifiable;
@@ -23,6 +25,7 @@ class User extends Authenticatable
         'nis',
         'email',
         'password',
+        'avatar_url',
     ];
 
     /**
@@ -56,5 +59,12 @@ class User extends Authenticatable
     public function canBeImpersonated(): bool
     {
         return ! $this->hasRole('Admin');
+    }
+
+    public function getFilamentAvatarUrl(): ?string
+    {
+        $avatarColumn = config('filament-edit-profile.avatar_column', 'avatar_url');
+
+        return $this->$avatarColumn ? Storage::url($this->$avatarColumn) : null;
     }
 }
