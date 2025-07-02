@@ -227,5 +227,8 @@
     "Yes": "Ya",
     "You are receiving this email because we received a password reset request for your account.": "Anda menerima surel ini karena kami menerima permintaan pengaturan ulang kata sandi untuk akun anda.",
     "Member": "Anggota",
-    "Member Management": "Manajemen Anggtoa"
+    "Member Management": "Manajemen Anggota",
+    "Book": "Buku",
+    "Category": "Kategori",
+    "Book Collection Management": "Manajemen Koleksi Buku"
 }

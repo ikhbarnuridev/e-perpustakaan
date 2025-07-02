@@ -16,7 +16,7 @@ class ManageUsers extends ManageRecords
         return [
             Actions\CreateAction::make()
                 ->modalWidth(MaxWidth::Medium)
-                ->after(fn($record) => $record->markEmailAsVerified()),
+                ->after(fn ($record) => $record->markEmailAsVerified()),
         ];
     }
 }

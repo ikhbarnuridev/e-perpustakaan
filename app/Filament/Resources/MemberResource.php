@@ -3,10 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\MemberResource\Pages;
-use App\Filament\Resources\MemberResource\RelationManagers;
-use App\Models\Member;
 use App\Models\User;
-use Filament\Forms;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -15,7 +12,6 @@ use Filament\Tables;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 
@@ -65,16 +61,16 @@ class MemberResource extends Resource
                     ->label(__('filament-panels::pages/auth/register.form.password.label'))
                     ->password()
                     ->revealable(filament()->arePasswordsRevealable())
-                    ->required(fn($context) => $context == 'create')
+                    ->required(fn ($context) => $context == 'create')
                     ->rule(Password::default())
-                    ->dehydrateStateUsing(fn($state) => Hash::make($state))
+                    ->dehydrateStateUsing(fn ($state) => Hash::make($state))
                     ->same('passwordConfirmation')
                     ->validationAttribute(__('filament-panels::pages/auth/register.form.password.validation_attribute')),
                 TextInput::make('passwordConfirmation')
                     ->label(__('filament-panels::pages/auth/register.form.password_confirmation.label'))
                     ->password()
                     ->revealable(filament()->arePasswordsRevealable())
-                    ->required(fn($context) => $context == 'create')
+                    ->required(fn ($context) => $context == 'create')
                     ->dehydrated(false),
             ])
             ->columns(1);
@@ -84,7 +80,7 @@ class MemberResource extends Resource
     {
         return $table
             ->modifyQueryUsing(
-                fn(Builder $query) => $query->whereRelation('roles', 'name', 'Member')
+                fn (Builder $query) => $query->whereRelation('roles', 'name', 'Member')
             )
             ->columns([
                 Tables\Columns\TextColumn::make('name')
@@ -117,7 +113,7 @@ class MemberResource extends Resource
                     Tables\Actions\EditAction::make()
                         ->modalWidth(MaxWidth::Medium),
                     Tables\Actions\DeleteAction::make(),
-                ])
+                ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

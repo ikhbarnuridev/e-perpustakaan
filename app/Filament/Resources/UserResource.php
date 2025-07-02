@@ -54,7 +54,7 @@ class UserResource extends Resource
                     ->maxLength(255)
                     ->unique(ignoreRecord: true),
                 Select::make('roles')
-                    ->relationship('roles', 'name', fn(Builder $query) => $query->where('name', '!=', 'Admin'))
+                    ->relationship('roles', 'name', fn (Builder $query) => $query->where('name', '!=', 'Admin'))
                     ->required()
                     ->multiple()
                     ->preload(),
@@ -62,16 +62,16 @@ class UserResource extends Resource
                     ->label(__('filament-panels::pages/auth/register.form.password.label'))
                     ->password()
                     ->revealable(filament()->arePasswordsRevealable())
-                    ->required(fn($context) => $context == 'create')
+                    ->required(fn ($context) => $context == 'create')
                     ->rule(Password::default())
-                    ->dehydrateStateUsing(fn($state) => Hash::make($state))
+                    ->dehydrateStateUsing(fn ($state) => Hash::make($state))
                     ->same('passwordConfirmation')
                     ->validationAttribute(__('filament-panels::pages/auth/register.form.password.validation_attribute')),
                 TextInput::make('passwordConfirmation')
                     ->label(__('filament-panels::pages/auth/register.form.password_confirmation.label'))
                     ->password()
                     ->revealable(filament()->arePasswordsRevealable())
-                    ->required(fn($context) => $context == 'create')
+                    ->required(fn ($context) => $context == 'create')
                     ->dehydrated(false),
             ])
             ->columns(1);
@@ -81,7 +81,7 @@ class UserResource extends Resource
     {
         return $table
             ->modifyQueryUsing(
-                fn(Builder $query) => $query->whereDoesntHave('roles', function ($subQuery) {
+                fn (Builder $query) => $query->whereDoesntHave('roles', function ($subQuery) {
                     $subQuery->where('name', 'Admin');
                 })
             )
