@@ -45,6 +45,12 @@ class BookResource extends Resource
                     ->required()
                     ->maxLength(255)
                     ->autofocus(),
+                Select::make('categories')
+                    ->label('Kategori')
+                    ->multiple()
+                    ->relationship('categories', 'name')
+                    ->preload()
+                    ->searchable(),
                 TextInput::make('author')
                     ->label(__('Author'))
                     ->required()
@@ -79,12 +85,17 @@ class BookResource extends Resource
                     ->width('1%'),
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('categories.name')   // Kategori
+                    ->label('Kategori')
+                    ->badge(),
                 Tables\Columns\TextColumn::make('author')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('year_published')
-                    ->alignCenter(),
+                    ->alignCenter()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('publisher')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('stock')
                     ->alignCenter(),
             ])
@@ -94,7 +105,8 @@ class BookResource extends Resource
             ->actions([
                 ActionGroup::make([
                     Tables\Actions\EditAction::make()
-                        ->modalWidth(MaxWidth::Medium),
+                        ->modalWidth(MaxWidth::Medium)
+                        ->slideOver(),
                     Tables\Actions\DeleteAction::make(),
                 ]),
             ])
