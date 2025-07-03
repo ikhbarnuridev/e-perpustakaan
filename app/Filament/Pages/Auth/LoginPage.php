@@ -4,10 +4,10 @@ namespace App\Filament\Pages\Auth;
 
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;
-use Filament\Pages\Auth\Login as BaseLogin;
+use Filament\Pages\Auth\Login;
 use Illuminate\Validation\ValidationException;
 
-class Login extends BaseLogin
+class LoginPage extends Login
 {
     protected function getForms(): array
     {

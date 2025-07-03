@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Pages\BookCollectionPage;
 use App\Filament\Resources\BorrowingResource\Pages;
 use App\Models\Book;
 use App\Models\Borrowing;
@@ -24,6 +25,11 @@ class BorrowingResource extends Resource implements HasShieldPermissions
     protected static ?string $model = Borrowing::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-archive-box';
+
+    public static function getNavigationSort(): ?int
+    {
+        return BookCollectionPage::getNavigationSort() + 1;
+    }
 
     public static function getLabel(): ?string
     {

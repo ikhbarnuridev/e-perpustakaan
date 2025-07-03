@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Pages\DashboardPage;
 use App\Filament\Resources\MemberResource\Pages;
 use App\Models\User;
 use Filament\Forms\Components\TextInput;
@@ -21,14 +22,14 @@ class MemberResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
 
+    public static function getNavigationSort(): ?int
+    {
+        return DashboardPage::getNavigationSort() + 1;
+    }
+
     public static function getLabel(): ?string
     {
         return __('Member');
-    }
-
-    public static function getNavigationGroup(): ?string
-    {
-        return __('Member Management');
     }
 
     public static function form(Form $form): Form

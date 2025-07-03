@@ -8,9 +8,9 @@ use Filament\Facades\Filament;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;
 use Filament\Http\Responses\Auth\Contracts\RegistrationResponse;
-use Filament\Pages\Auth\Register as BaseRegister;
+use Filament\Pages\Auth\Register;
 
-class Register extends BaseRegister
+class RegisterPage extends Register
 {
     public function register(): ?RegistrationResponse
     {
