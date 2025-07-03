@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\BookCategory;
+use App\Models\Category;
 use Database\Factories\BookFactory;
 use Database\Factories\CategoryFactory;
 use Database\Factories\UserFactory;
@@ -234,8 +236,20 @@ class DevelopmentSeeder extends Seeder
             ],
         ];
 
+        $categories = Category::all();
+
         foreach ($books as $book) {
-            BookFactory::new()->create($book);
+            $book = BookFactory::new()->create($book);
+
+            // Add 1-3 random category
+            $randomCategories = $categories->random(rand(1, 3));
+
+            foreach ($randomCategories as $category) {
+                BookCategory::create([
+                    'book_id' => $book->id,
+                    'category_id' => $category->id,
+                ]);
+            }
         }
     }
 }
