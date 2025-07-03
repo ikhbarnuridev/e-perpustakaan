@@ -246,5 +246,8 @@
     "Borrowing has been rejected successfully": "Peminjaman berhasil ditolak",
     "Failed to reject borrowing. Please try again later.": "Gagal enolak peminjaman",
     "Confirm Pickup": "Konfirmasi Pengambilan",
-    "Confirm Return": "Konfirmasi Pengembalian"
+    "Confirm Return": "Konfirmasi Pengembalian",
+    "Borrow": "Pinjam",
+    "See Detail": "Lihat Detil",
+    "Book Detail": "Detail Buku"
 }
