@@ -6,11 +6,11 @@ use App\Filament\Resources\BorrowingResource;
 use Filament\Pages\Page;
 use Illuminate\Contracts\Support\Htmlable;
 
-class ReportPage extends Page
+class ReportingPage extends Page
 {
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
-    protected static string $view = 'filament.pages.report-page';
+    protected static string $view = 'filament.pages.reporting-page';
 
     protected static ?string $slug = 'reporting';
 
