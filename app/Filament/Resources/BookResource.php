@@ -9,7 +9,6 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Support\Enums\MaxWidth;
 use Filament\Tables;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Table;
@@ -39,18 +38,21 @@ class BookResource extends Resource
                     ->image()
                     ->directory('book/covers')
                     ->imageEditor()
-                    ->maxSize(2048),
+                    ->maxSize(2048)
+                    ->columnSpanFull(),
                 TextInput::make('title')
                     ->label(__('Judul'))
                     ->required()
                     ->maxLength(255)
-                    ->autofocus(),
+                    ->autofocus()
+                    ->columnSpanFull(),
                 Select::make('categories')
                     ->label('Kategori')
                     ->multiple()
                     ->relationship('categories', 'name')
                     ->preload()
-                    ->searchable(),
+                    ->searchable()
+                    ->columnSpanFull(),
                 TextInput::make('author')
                     ->label(__('Author'))
                     ->required()
@@ -70,8 +72,7 @@ class BookResource extends Resource
                     ->numeric()
                     ->minValue(0)
                     ->default(0),
-            ])
-            ->columns(1);
+            ]);
     }
 
     public static function table(Table $table): Table
@@ -106,9 +107,7 @@ class BookResource extends Resource
             ])
             ->actions([
                 ActionGroup::make([
-                    Tables\Actions\EditAction::make()
-                        ->modalWidth(MaxWidth::Medium)
-                        ->slideOver(),
+                    Tables\Actions\EditAction::make(),
                     Tables\Actions\DeleteAction::make(),
                 ]),
             ])
