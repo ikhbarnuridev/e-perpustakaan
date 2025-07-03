@@ -37,7 +37,6 @@ class CategoryResource extends Resource
                     ->label(__('Nama'))
                     ->required()
                     ->maxLength(255)
-                    ->autofocus()
                     ->unique(ignoreRecord: true),
             ])
             ->columns(1);

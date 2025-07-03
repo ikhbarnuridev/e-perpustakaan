@@ -33,18 +33,17 @@ class BookResource extends Resource
     {
         return $form
             ->schema([
+                TextInput::make('title')
+                    ->label(__('Judul'))
+                    ->required()
+                    ->maxLength(255)
+                    ->columnSpanFull(),
                 FileUpload::make('cover')
                     ->label(__('Cover'))
                     ->image()
                     ->directory('book/covers')
                     ->imageEditor()
                     ->maxSize(2048)
-                    ->columnSpanFull(),
-                TextInput::make('title')
-                    ->label(__('Judul'))
-                    ->required()
-                    ->maxLength(255)
-                    ->autofocus()
                     ->columnSpanFull(),
                 Select::make('categories')
                     ->label('Kategori')
@@ -91,14 +90,22 @@ class BookResource extends Resource
                     ->badge()
                     ->limitList(),
                 Tables\Columns\TextColumn::make('author')
+                    ->label(__('Author'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('year_published')
                     ->alignCenter()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('publisher')
+                    ->label(__('Publisher'))
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('stock')
+                    ->label(__('Stock'))
+                    ->alignCenter()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('available_stock')
+                    ->label(__('Available Stock'))
+                    ->getStateUsing(fn ($record) => $record->availableStock())
                     ->alignCenter()
                     ->sortable(),
             ])

@@ -53,12 +53,17 @@ class User extends Authenticatable implements HasAvatar
 
     public function canImpersonate(): bool
     {
-        return $this->hasRole('Admin');
+        return $this->isAdmin();
     }
 
     public function canBeImpersonated(): bool
     {
-        return ! $this->hasRole('Admin');
+        return ! $this->isAdmin();
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->hasRole('Admin');
     }
 
     public function getFilamentAvatarUrl(): ?string

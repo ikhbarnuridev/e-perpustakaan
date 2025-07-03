@@ -231,5 +231,18 @@
     "Book": "Buku",
     "Category": "Kategori",
     "Book Collection Management": "Manajemen Koleksi Buku",
-    "My Profile": "Profil Saya"
+    "My Profile": "Profil Saya",
+    "Borrowing": "Peminjaman",
+    "Borrowed At": "Tanggal Peminjaman",
+    "Due Date": "Batas Pengembalian",
+    "Returned At": "Tanggal Pengembalian",
+    "Approve": "Setujui",
+    "Reject": "Tolak",
+    "Update Status": "Perbaruri Status",
+    "Borrowing has been approved successfully": "Peminjaman berhasil disetujui",
+    "Failed to approve borrowing. Please try again later.": "Gagal menyetujui peminjaman",
+    "Borrowing has been rejected successfully": "Peminjaman berhasil ditolak",
+    "Failed to reject borrowing. Please try again later.": "Gagal enolak peminjaman",
+    "Confirm Pickup": "Konfirmasi Pengambilan",
+    "Confirm Return": "Konfirmasi Pengembalian"
 }

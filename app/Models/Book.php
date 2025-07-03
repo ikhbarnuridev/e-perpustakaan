@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Book extends Model
 {
@@ -19,5 +20,28 @@ class Book extends Model
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class, BookCategory::class);
+    }
+
+    public function borrowings(): HasMany
+    {
+        return $this->hasMany(Borrowing::class);
+    }
+
+    public function availableStock(): int
+    {
+        $totalBorrowed = $this->borrowings()
+            ->whereIn('status', [
+                Borrowing::STATUS_PENDING,
+                Borrowing::STATUS_APPROVED,
+                Borrowing::STATUS_BORROWED,
+            ])
+            ->count();
+
+        return $this->stock - $totalBorrowed;
+    }
+
+    public function canBeBorrowed(): bool
+    {
+        return $this->availableStock() > 0;
     }
 }

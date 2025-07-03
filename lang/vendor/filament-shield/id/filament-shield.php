@@ -76,5 +76,10 @@ return [
         'replicate' => 'Replikasi',
         'reorder' => 'Susun Ulang',
         'restore_any' => 'Pulihkan Apa Saja',
+        'select_status' => 'Pilih Status',
+        'approve' => 'Setujui',
+        'reject' => 'Tolak',
+        'confirm_pickup' => 'Konfirmasi Pengambilan',
+        'confirm_return' => 'Konfirmasi Pengembalian',
     ],
 ];
