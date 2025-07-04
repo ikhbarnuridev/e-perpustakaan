@@ -175,7 +175,8 @@ class BookCollectionPage extends Page implements HasTable
                                 '7' => '1 Minggu',
                                 '14' => '2 Minggu',
                             ])
-                            ->required(),
+                            ->required()
+                            ->native(false),
                     ])
                     ->action(function ($record, array $data) {
                         try {
