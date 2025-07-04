@@ -33,11 +33,20 @@ jobs:
             # Install PHP dependencies defined in composer.json
             composer install --optimize-autoloader
 
+            # Install JavaScript dependencies defined in package.json
+            npm install
+
+            # Build the project (typically for production)
+            npm run build
+
+            # Delete node_modules folder to clean up unnecessary dev dependencies after build
+            rm -rf node_modules
+
             # Cache all Blade icons to improve performance
             php artisan migrate
 
-            # Clear and rebuild all caches (config, route, view, etc.)
-            php artisan optimize:clear
+            # Cache all Blade icons to improve performance
+            php artisan filament:optimize
 
             # Bring the Laravel application back up (exit maintenance mode)
             php artisan up
