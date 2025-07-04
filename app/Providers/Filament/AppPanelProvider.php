@@ -85,6 +85,7 @@ class AppPanelProvider extends PanelProvider
                     ->url(fn (): string => EditProfilePage::getUrl())
                     ->icon('heroicon-m-user-circle'),
             ])
-            ->spa();
+            ->spa()
+            ->favicon(asset('assets/images/logo.png'));
     }
 }
