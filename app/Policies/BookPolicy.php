@@ -105,4 +105,12 @@ class BookPolicy
     {
         return $user->can('reorder_book');
     }
+
+    /**
+     * Determine whether the user can borrow.
+     */
+    public function borrow(User $user): bool
+    {
+        return $user->can('borrow');
+    }
 }

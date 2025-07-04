@@ -106,7 +106,7 @@ class BorrowingResource extends Resource implements HasShieldPermissions
             ->modifyQueryUsing(function (Builder $query) {
                 $user = auth()->user();
 
-                if (! $user->isAdmin()) {
+                if ($user->isMember()) {
                     $query->where('user_id', $user->id);
                 }
 

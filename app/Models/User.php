@@ -66,6 +66,11 @@ class User extends Authenticatable implements HasAvatar
         return $this->hasRole('Admin');
     }
 
+    public function isMember(): bool
+    {
+        return $this->hasRole('Member');
+    }
+
     public function getFilamentAvatarUrl(): ?string
     {
         $avatarColumn = config('filament-edit-profile.avatar_column', 'avatar_url');

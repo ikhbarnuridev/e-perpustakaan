@@ -196,7 +196,8 @@ class BookCollectionPage extends Page implements HasTable
                                 ->danger()
                                 ->send();
                         }
-                    }),
+                    })
+                    ->visible(fn () => auth()->user()->can('borrow_book')),
             ])
             ->paginated([12])
             ->defaultSort('id', 'desc');

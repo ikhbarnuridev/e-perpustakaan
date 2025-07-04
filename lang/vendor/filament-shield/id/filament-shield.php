@@ -81,5 +81,6 @@ return [
         'reject' => 'Tolak',
         'confirm_pickup' => 'Konfirmasi Pengambilan',
         'confirm_return' => 'Konfirmasi Pengembalian',
+        'borrow' => "Pinjam"
     ],
 ];
