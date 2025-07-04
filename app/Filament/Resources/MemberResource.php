@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Pages\DashboardPage;
 use App\Filament\Resources\MemberResource\Pages;
 use App\Models\User;
+use App\Policies\MemberPolicy;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,6 +14,7 @@ use Filament\Tables;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 
@@ -131,5 +133,65 @@ class MemberResource extends Resource
         return [
             'index' => Pages\ManageMembers::route('/'),
         ];
+    }
+
+    public static function canViewAny(): bool
+    {
+        return app(MemberPolicy::class)->viewAny(auth()->user());
+    }
+
+    public static function canView(Model $record): bool
+    {
+        return app(MemberPolicy::class)->view(auth()->user());
+    }
+
+    public static function canCreate(): bool
+    {
+        return app(MemberPolicy::class)->create(auth()->user());
+    }
+
+    public static function canEdit(Model $record): bool
+    {
+        return app(MemberPolicy::class)->update(auth()->user());
+    }
+
+    public static function canDelete(Model $record): bool
+    {
+        return app(MemberPolicy::class)->delete(auth()->user());
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return app(MemberPolicy::class)->deleteAny(auth()->user());
+    }
+
+    public static function canForceDelete(Model $record): bool
+    {
+        return app(MemberPolicy::class)->forceDelete(auth()->user());
+    }
+
+    public static function canForceDeleteAny(): bool
+    {
+        return app(MemberPolicy::class)->forceDeleteAny(auth()->user());
+    }
+
+    public static function canRestore(Model $record): bool
+    {
+        return app(MemberPolicy::class)->restore(auth()->user());
+    }
+
+    public static function canRestoreAny(): bool
+    {
+        return app(MemberPolicy::class)->restoreAny(auth()->user());
+    }
+
+    public static function canReplicate(Model $record): bool
+    {
+        return app(MemberPolicy::class)->replicate(auth()->user());
+    }
+
+    public static function canReorder(): bool
+    {
+        return app(MemberPolicy::class)->reorder(auth()->user());
     }
 }
