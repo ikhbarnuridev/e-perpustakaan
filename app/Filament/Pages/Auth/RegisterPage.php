@@ -72,6 +72,16 @@ class RegisterPage extends Register
         ];
     }
 
+    protected function getEmailFormComponent(): Component
+    {
+        return TextInput::make('email')
+            ->label(__('Email'))
+            ->email()
+            ->required()
+            ->maxLength(255)
+            ->unique($this->getUserModel());
+    }
+
     protected function getNisFormComponent(): Component
     {
         return TextInput::make('nis')
