@@ -40,8 +40,21 @@ class Book extends Model
         return $this->stock - $totalBorrowed;
     }
 
+    public function isBorrowedBy(User $user): bool
+    {
+        return $this->borrowings()
+            ->where('user_id', $user->id)
+            ->where('book_id', $this->id)
+            ->whereIn('status', [
+                Borrowing::STATUS_PENDING,
+                Borrowing::STATUS_APPROVED,
+                Borrowing::STATUS_BORROWED,
+            ])
+            ->exists();
+    }
+
     public function canBeBorrowed(): bool
     {
-        return $this->availableStock() > 0;
+        return ($this->availableStock() > 0) && ! $this->isBorrowedBy(auth()->user());
     }
 }

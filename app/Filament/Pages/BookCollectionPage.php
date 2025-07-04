@@ -4,7 +4,14 @@ namespace App\Filament\Pages;
 
 use App\Filament\Resources\MemberResource;
 use App\Models\Book;
+use App\Models\Borrowing;
 use BezhanSalleh\FilamentShield\Traits\HasPageShield;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Select;
+use Filament\Infolists;
+use Filament\Infolists\Components\ImageEntry;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Support\Colors\Color;
 use Filament\Support\Enums\FontWeight;
@@ -17,6 +24,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\TextColumn\TextColumnSize;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Support\Htmlable;
 
@@ -61,11 +69,13 @@ class BookCollectionPage extends Page implements HasTable
                             ->width(128)
                             ->circular(false)
                             ->alignCenter()
-                            ->getStateUsing(fn ($record) => $record->cover ?: asset('assets/images/no-image.svg')),
+                            ->getStateUsing(fn ($record) => $record->cover ?: asset('assets/images/no-image.svg'))
+                            ->extraAttributes(['class' => 'mb-2']),
                         Stack::make([
                             TextColumn::make('title')
                                 ->label(__('Title'))
                                 ->weight(FontWeight::Bold)
+                                ->limit(40)
                                 ->searchable(),
                             TextColumn::make('author')
                                 ->label(__('Author'))
@@ -74,12 +84,25 @@ class BookCollectionPage extends Page implements HasTable
                                 ->formatStateUsing(function ($state, $record) {
                                     return "{$state} ({$record->year_published})";
                                 }),
-                        ])
-                            ->extraAttributes(['class' => 'my-4']),
+                            TextColumn::make('categories.name')
+                                ->label(_('Category'))
+                                ->badge()
+                                ->getStateUsing(fn ($record) => $record->categories->pluck('name')->take(2))
+                                ->extraAttributes(['class' => 'mt-2']),
+                        ]),
                     ]),
             ])
+            ->filters([
+                SelectFilter::make('category')
+                    ->label(__('Category'))
+                    ->relationship('categories', 'name')
+                    ->multiple()
+                    ->preload()
+                    ->optionsLimit(5)
+                    ->searchable(),
+            ])
             ->contentGrid([
-                'md' => 3,
+                'md' => 2,
                 'xl' => 3,
             ])
             ->actions([
@@ -91,14 +114,91 @@ class BookCollectionPage extends Page implements HasTable
                     ->extraAttributes(['class' => 'w-full'])
                     ->modal()
                     ->modalHeading(__('Book Detail'))
+                    ->modalAlignment('center')
                     ->modalWidth(MaxWidth::Large)
-                    ->modalSubmitAction(false),
+                    ->modalSubmitAction(false)
+                    ->modalCancelAction(false)
+                    ->infolist([
+                        Infolists\Components\Grid::make(2)
+                            ->schema([
+                                ImageEntry::make('cover')
+                                    ->label(__('Cover'))
+                                    ->hiddenLabel()
+                                    ->columnSpanFull()
+                                    ->height(420)
+                                    ->width('100%')
+                                    ->alignCenter()
+                                    ->getStateUsing(fn ($record) => $record->cover ?: asset('assets/images/no-image.svg')),
+                                TextEntry::make('title')
+                                    ->label(__('Title')),
+                                TextEntry::make('author')
+                                    ->label(__('Author')),
+                                TextEntry::make('categories.name')
+                                    ->label(__('Category'))
+                                    ->columnSpanFull()
+                                    ->badge(),
+                                TextEntry::make('publisher')
+                                    ->label(__('Publisher')),
+                                TextEntry::make('year_published')
+                                    ->label(__('Year Published')),
+                                TextEntry::make('stock')
+                                    ->label(__('Available Stock')),
+                            ]),
+                    ]),
                 Action::make('borrow')
-                    ->label(__('Borrow'))
+                    ->label(function ($record) {
+                        if ($record->availableStock() <= 0) {
+                            return __('Out of Stock');
+                        }
+
+                        if ($record->isBorrowedBy(auth()->user())) {
+                            return __('Already Borrowed');
+                        }
+
+                        return __('Borrow');
+                    })
                     ->icon('heroicon-o-bookmark')
                     ->button()
                     ->extraAttributes(['class' => 'w-full'])
-                    ->requiresConfirmation(),
-            ]);
+                    ->requiresConfirmation()
+                    ->disabled(fn ($record) => ! $record->canBeBorrowed())
+                    ->extraAttributes(['class' => 'w-full'])
+                    ->form([
+                        DatePicker::make('borrowed_at')
+                            ->label(__('Borrowed At'))
+                            ->default(now())
+                            ->readOnly(),
+                        Select::make('duration')
+                            ->label(__('Borrowing Duration'))
+                            ->options([
+                                '3' => '3 Hari',
+                                '7' => '1 Minggu',
+                                '14' => '2 Minggu',
+                            ])
+                            ->required(),
+                    ])
+                    ->action(function ($record, array $data) {
+                        try {
+                            Borrowing::create([
+                                'user_id' => auth()->user()->id,
+                                'book_id' => $record->id,
+                                'borrowed_at' => $data['borrowed_at'],
+                                'due_date' => now()->addDays((int) $data['duration']),
+                            ]);
+
+                            Notification::make()
+                                ->title(__('Borrowing request submitted successfully'))
+                                ->success()
+                                ->send();
+                        } catch (\Throwable $e) {
+                            Notification::make()
+                                ->title(__('Failed to submit borrowing request'))
+                                ->danger()
+                                ->send();
+                        }
+                    }),
+            ])
+            ->paginated([12])
+            ->defaultSort('id', 'desc');
     }
 }

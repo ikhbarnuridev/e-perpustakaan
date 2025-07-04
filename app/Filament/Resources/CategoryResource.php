@@ -34,7 +34,7 @@ class CategoryResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
-                    ->label(__('Nama'))
+                    ->label(__('Name'))
                     ->required()
                     ->maxLength(255)
                     ->unique(ignoreRecord: true),
@@ -53,6 +53,7 @@ class CategoryResource extends Resource
                     ->alignCenter()
                     ->width('1%'),
                 Tables\Columns\TextColumn::make('name')
+                    ->label(__('Name'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('books_count')
                     ->label('Jumlah Buku')

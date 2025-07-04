@@ -57,6 +57,7 @@ class BookResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Select::make('year_published')
+                    ->label(__('Year Published'))
                     ->options(array_combine(range(now()->year, 1900), range(now()->year, 1900)))
                     ->native(false)
                     ->searchable()
@@ -84,6 +85,7 @@ class BookResource extends Resource
                     ->alignCenter()
                     ->width('1%'),
                 Tables\Columns\TextColumn::make('title')
+                    ->label(__('Title'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('categories.name')   // Kategori
                     ->label('Kategori')
@@ -93,6 +95,7 @@ class BookResource extends Resource
                     ->label(__('Author'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('year_published')
+                    ->label(__('Year Published'))
                     ->alignCenter()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('publisher')

@@ -54,6 +54,7 @@ class UserResource extends Resource
                     ->maxLength(255)
                     ->unique(ignoreRecord: true),
                 Select::make('roles')
+                    ->label(__('Role'))
                     ->relationship('roles', 'name', fn (Builder $query) => $query->where('name', '!=', 'Admin'))
                     ->required()
                     ->multiple()
@@ -92,6 +93,7 @@ class UserResource extends Resource
                     ->alignCenter()
                     ->width('1%'),
                 Tables\Columns\TextColumn::make('name')
+                    ->label(__('Name'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),

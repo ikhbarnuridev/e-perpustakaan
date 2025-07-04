@@ -48,7 +48,6 @@ class BorrowingResource extends Resource implements HasShieldPermissions
                         modifyQueryUsing: fn (Builder $query) => $query->whereHas('roles', fn ($q) => $q->where('name', 'Member'))
                     )->getOptionLabelFromRecordUsing(fn ($record) => "{$record->name} ({$record->nis})")
                     ->optionsLimit(5)
-                    ->preload()
                     ->searchable(),
                 Select::make('book_id')
                     ->label(__('Book'))
@@ -104,6 +103,15 @@ class BorrowingResource extends Resource implements HasShieldPermissions
                 ->alignCenter();
 
         return $table
+            ->modifyQueryUsing(function (Builder $query) {
+                $user = auth()->user();
+
+                if (! $user->isAdmin()) {
+                    $query->where('user_id', $user->id);
+                }
+
+                return $query;
+            })
             ->columns([
                 Tables\Columns\TextColumn::make('index')
                     ->label('No')
@@ -112,7 +120,8 @@ class BorrowingResource extends Resource implements HasShieldPermissions
                     ->width('1%'),
                 Tables\Columns\TextColumn::make('user.name')
                     ->label(__('Member'))
-                    ->searchable(),
+                    ->searchable()
+                    ->visible(fn () => auth()->user()->isAdmin()),
                 Tables\Columns\TextColumn::make('book.title')
                     ->label(__('Book'))
                     ->searchable(),
