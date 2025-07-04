@@ -133,16 +133,15 @@ class BookCollectionPage extends Page implements HasTable
                                     ->label(__('Title')),
                                 TextEntry::make('author')
                                     ->label(__('Author')),
-                                TextEntry::make('categories.name')
-                                    ->label(__('Category'))
-                                    ->columnSpanFull()
-                                    ->badge(),
                                 TextEntry::make('publisher')
                                     ->label(__('Publisher')),
                                 TextEntry::make('year_published')
                                     ->label(__('Year Published')),
                                 TextEntry::make('stock')
                                     ->label(__('Available Stock')),
+                                TextEntry::make('categories.name')
+                                    ->label(__('Category'))
+                                    ->badge(),
                             ]),
                     ]),
                 Action::make('borrow')
