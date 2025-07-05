@@ -269,5 +269,7 @@
     "Cover": "Sampul",
     "Role": "Peran",
     "Latest Borrowing Request": "Permintaan Peminjaman Terbaru",
-    "Stats Overview": "Ringkasan Statistik"
+    "Stats Overview": "Ringkasan Statistik",
+    "Borrowing Records": "Data Peminjaman",
+    "Export Borrowing Records": "Expor Data Peminjaman"
 }
