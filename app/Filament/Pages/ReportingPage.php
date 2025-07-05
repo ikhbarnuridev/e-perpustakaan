@@ -4,6 +4,8 @@ namespace App\Filament\Pages;
 
 use AlperenErsoy\FilamentExport\Actions\FilamentExportHeaderAction;
 use App\Filament\Resources\BorrowingResource;
+use App\Filament\Widgets\BorrowingStatusChart;
+use App\Filament\Widgets\MonthlyBorrowingChart;
 use App\Models\Borrowing;
 use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Filament\Pages\Page;
@@ -93,5 +95,20 @@ class ReportingPage extends Page implements HasTable
             ->paginated([5, 10, 25])
             ->defaultSort('id', 'desc')
             ->heading(__('Borrowing Records'));
+    }
+
+    public function getVisibleHeaderWidgets(): array
+    {
+        $widgets = [
+            BorrowingStatusChart::class,
+            MonthlyBorrowingChart::class,
+        ];
+
+        return $widgets;
+    }
+
+    public function getHeaderWidgetsColumns(): int|string|array
+    {
+        return 2;
     }
 }
