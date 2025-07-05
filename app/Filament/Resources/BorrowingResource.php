@@ -247,6 +247,7 @@ class BorrowingResource extends Resource implements HasShieldPermissions
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ])
+            ->paginated([5, 10, 25])
             ->defaultSort('id', 'desc');
     }
 

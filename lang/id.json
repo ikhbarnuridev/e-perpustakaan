@@ -267,5 +267,7 @@
     "Name": "Nama",
     "Stock": "Stok",
     "Cover": "Sampul",
-    "Role": "Peran"
+    "Role": "Peran",
+    "Latest Borrowing Request": "Permintaan Peminjaman Terbaru",
+    "Stats Overview": "Ringkasan Statistik"
 }

@@ -131,6 +131,7 @@ class UserResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ])
+            ->paginated([5, 10, 25])
             ->defaultSort('id', 'desc');
     }
 

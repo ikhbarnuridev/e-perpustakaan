@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Widgets\LatestBorrowingRequestWidget;
 use App\Filament\Widgets\StatsOverviewWidget;
 use Filament\Pages\Dashboard;
 use Filament\Widgets\AccountWidget;
@@ -28,6 +29,7 @@ class DashboardPage extends Dashboard
         $widgets = [
             AccountWidget::class,
             StatsOverviewWidget::class,
+            LatestBorrowingRequestWidget::class,
         ];
 
         return $widgets;

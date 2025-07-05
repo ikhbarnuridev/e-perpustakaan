@@ -3,7 +3,6 @@
 namespace App\Filament\Widgets;
 
 use App\Filament\Pages\BookCollectionPage;
-use App\Filament\Pages\ReportingPage;
 use App\Filament\Resources\BorrowingResource;
 use App\Filament\Resources\MemberResource;
 use App\Models\Book;
@@ -16,6 +15,11 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 class StatsOverviewWidget extends BaseWidget
 {
     use HasWidgetShield;
+
+    protected function getHeading(): ?string
+    {
+        return __('Stats Overview');
+    }
 
     protected function getStats(): array
     {
@@ -40,12 +44,6 @@ class StatsOverviewWidget extends BaseWidget
             )
                 ->icon('heroicon-o-archive-box')
                 ->url(BorrowingResource::getUrl()),
-            Stat::make(
-                label: __('Reporting'),
-                value: 0
-            )
-                ->icon('heroicon-o-document-text')
-                ->url(ReportingPage::getUrl()),
         ];
     }
 }
