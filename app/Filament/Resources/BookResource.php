@@ -22,7 +22,7 @@ class BookResource extends Resource implements HasShieldPermissions
 
     public static function getLabel(): ?string
     {
-        return __('Book');
+        return __('models/book.name.singular');
     }
 
     public static function getNavigationGroup(): ?string
@@ -35,40 +35,40 @@ class BookResource extends Resource implements HasShieldPermissions
         return $form
             ->schema([
                 TextInput::make('title')
-                    ->label(__('Judul'))
+                    ->label(__('models/book.columns.title.name'))
                     ->required()
                     ->maxLength(255)
                     ->columnSpanFull(),
                 FileUpload::make('cover')
-                    ->label(__('Cover'))
+                    ->label(__('models/book.columns.cover.name'))
                     ->image()
                     ->directory('book/covers')
                     ->imageEditor()
                     ->maxSize(2048)
                     ->columnSpanFull(),
                 Select::make('categories')
-                    ->label('Kategori')
+                    ->label(__('models/category.name.plural'))
                     ->multiple()
                     ->relationship('categories', 'name')
                     ->preload()
                     ->searchable()
                     ->columnSpanFull(),
                 TextInput::make('author')
-                    ->label(__('Author'))
+                    ->label(__('models/book.columns.author.name'))
                     ->required()
                     ->maxLength(255),
                 Select::make('year_published')
-                    ->label(__('Year Published'))
+                    ->label(__('models/book.columns.year_published.name'))
                     ->options(array_combine(range(now()->year, 1900), range(now()->year, 1900)))
                     ->native(false)
                     ->searchable()
                     ->required(),
                 TextInput::make('publisher')
-                    ->label(__('Penerbit'))
+                    ->label(__('models/book.columns.publisher.name'))
                     ->required()
                     ->maxLength(255),
                 TextInput::make('stock')
-                    ->label(__('Stok'))
+                    ->label(__('models/book.columns.stock.name'))
                     ->required()
                     ->numeric()
                     ->minValue(0)
@@ -86,29 +86,29 @@ class BookResource extends Resource implements HasShieldPermissions
                     ->alignCenter()
                     ->width('1%'),
                 Tables\Columns\TextColumn::make('title')
-                    ->label(__('Title'))
+                    ->label(__('models/book.columns.title.name'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('categories.name')   // Kategori
-                    ->label('Kategori')
+                    ->label(__('models/category.name.plural'))
                     ->badge()
                     ->limitList(),
                 Tables\Columns\TextColumn::make('author')
-                    ->label(__('Author'))
+                    ->label(__('models/book.columns.author.name'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('year_published')
                     ->label(__('Year Published'))
                     ->alignCenter()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('publisher')
-                    ->label(__('Publisher'))
+                    ->label(__('models/book.columns.publisher.name'))
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('stock')
-                    ->label(__('Stock'))
+                    ->label(__('models/book.columns.stock.name'))
                     ->alignCenter()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('available_stock')
-                    ->label(__('Available Stock'))
+                    ->label(__('models/book.columns.available_stock.name'))
                     ->getStateUsing(fn ($record) => $record->availableStock())
                     ->alignCenter()
                     ->sortable(),

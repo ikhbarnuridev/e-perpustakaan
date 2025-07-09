@@ -4,39 +4,39 @@ declare(strict_types=1);
 
 return [
     'name' => [
-        'singular' => 'Buku',
-        'plural' => 'Buku',
+        'singular' => 'Book',
+        'plural' => 'Books',
     ],
     'columns' => [
         'id' => [
             'name' => 'ID',
         ],
         'title' => [
-            'name' => 'Judul',
+            'name' => 'Title',
         ],
         'cover' => [
-            'name' => 'Sampul',
+            'name' => 'Cover',
         ],
         'author' => [
-            'name' => 'Penulis',
+            'name' => 'Author',
         ],
         'publisher' => [
-            'name' => 'Penerbit',
+            'name' => 'Publisher',
         ],
         'year_published' => [
-            'name' => 'Tahun Terbit',
+            'name' => 'Year Published',
         ],
         'stock' => [
-            'name' => 'Stok',
+            'name' => 'Stock',
         ],
         'available_stock' => [
-            'name' => 'Stok Tersedia',
+            'name' => 'Available Stock',
         ],
         'created_at' => [
-            'name' => 'Tanggal Dibuat',
+            'name' => 'Created At',
         ],
         'updated_at' => [
-            'name' => 'Tanggal Diperbarui',
+            'name' => 'Updated At',
         ],
     ],
 ];
