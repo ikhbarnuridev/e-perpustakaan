@@ -18,10 +18,10 @@ return [
             'name' => 'Number of Books',
         ],
         'created_at' => [
-            'name' => 'Created At',
+            'name' => 'Created Date',
         ],
         'updated_at' => [
-            'name' => 'Updated At',
+            'name' => 'Updated Date',
         ],
     ],
 ];

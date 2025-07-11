@@ -9,13 +9,13 @@ return [
     ],
     'columns' => [
         'id' => [
-            'name' => 'Loan ID',
+            'name' => 'ID',
         ],
         'user_id' => [
-            'name' => 'Library Member',
+            'name' => 'Member',
         ],
         'book_id' => [
-            'name' => 'Book Title',
+            'name' => 'Book',
         ],
         'borrowed_at' => [
             'name' => 'Borrowed Date',
@@ -27,16 +27,16 @@ return [
             'name' => 'Returned Date',
         ],
         'status' => [
-            'name' => 'Loan Status',
+            'name' => 'Status',
         ],
         'rejection_reason' => [
             'name' => 'Rejection Reason',
         ],
         'created_at' => [
-            'name' => 'Created At',
+            'name' => 'Created Date',
         ],
         'updated_at' => [
-            'name' => 'Updated At',
+            'name' => 'Updated Date',
         ],
     ],
 ];

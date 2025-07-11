@@ -33,7 +33,7 @@ class BorrowingResource extends Resource implements HasShieldPermissions
 
     public static function getLabel(): ?string
     {
-        return __('Borrowing');
+        return __('models/borrowing.name.singular');
     }
 
     public static function form(Form $form): Form
@@ -41,7 +41,7 @@ class BorrowingResource extends Resource implements HasShieldPermissions
         return $form
             ->schema([
                 Select::make('user_id')
-                    ->label(__('Member'))
+                    ->label(__('models/borrowing.columns.user_id.name'))
                     ->relationship(
                         name: 'user',
                         titleAttribute: 'name',
@@ -50,7 +50,7 @@ class BorrowingResource extends Resource implements HasShieldPermissions
                     ->optionsLimit(5)
                     ->searchable(),
                 Select::make('book_id')
-                    ->label(__('Book'))
+                    ->label(__('models/borrowing.columns.book_id.name'))
                     ->searchable()
                     ->optionsLimit(5)
                     ->getSearchResultsUsing(function (string $search) {
@@ -62,15 +62,15 @@ class BorrowingResource extends Resource implements HasShieldPermissions
                     ->getOptionLabelUsing(fn ($value): ?string => Book::find($value)?->title)
                     ->required(),
                 DatePicker::make('borrowed_at')
-                    ->label(__('Borrowed At'))
+                    ->label(__('models/borrowing.columns.borrowed_at.name'))
                     ->default(now())
                     ->readOnly(),
                 DatePicker::make('due_date')
-                    ->label(__('Due Date'))
+                    ->label(__('models/borrowing.columns.due_date.name'))
                     ->minDate(now()->tomorrow())
                     ->required(),
                 Select::make('status')
-                    ->label(__('Status'))
+                    ->label(__('models/borrowing.columns.status.name'))
                     ->options(Borrowing::STATUSES)
                     ->preload()
                     ->native(false)
@@ -86,11 +86,11 @@ class BorrowingResource extends Resource implements HasShieldPermissions
 
         $statusColumn = $canSelectStatus
             ? Tables\Columns\SelectColumn::make('status')
-                ->label(__('Status'))
+                ->label(__('models/borrowing.columns.status.name'))
                 ->options(Borrowing::STATUSES)
                 ->alignCenter()
             : Tables\Columns\TextColumn::make('status')
-                ->label(__('Status'))
+                ->label(__('models/borrowing.columns.status.name'))
                 ->badge()
                 ->color(fn (string $state): string => match ($state) {
                     'pending' => 'gray',
@@ -119,22 +119,22 @@ class BorrowingResource extends Resource implements HasShieldPermissions
                     ->alignCenter()
                     ->width('1%'),
                 Tables\Columns\TextColumn::make('user.name')
-                    ->label(__('Member'))
+                    ->label(__('models/borrowing.columns.user_id.name'))
                     ->searchable()
                     ->visible(fn () => auth()->user()->isAdmin()),
                 Tables\Columns\TextColumn::make('book.title')
-                    ->label(__('Book'))
+                    ->label(__('models/borrowing.columns.book_id.name'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('borrowed_at')
-                    ->label(__('Borrowed At'))
+                    ->label(__('models/borrowing.columns.borrowed_at.name'))
                     ->date()
                     ->alignCenter(),
                 Tables\Columns\TextColumn::make('due_date')
-                    ->label(__('Due Date'))
+                    ->label(__('models/borrowing.columns.due_date.name'))
                     ->date()
                     ->alignCenter(),
                 Tables\Columns\TextColumn::make('returned_at')
-                    ->label(__('Returned At'))
+                    ->label(__('models/borrowing.columns.returned_at.name'))
                     ->date()
                     ->alignCenter()
                     ->toggleable(isToggledHiddenByDefault: true),
