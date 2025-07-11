@@ -70,7 +70,10 @@ class BookCollectionPage extends Page implements HasTable
                             ->circular(false)
                             ->alignCenter()
                             ->getStateUsing(fn ($record) => $record->cover ?: asset('assets/images/no-image.svg'))
-                            ->extraAttributes(['class' => 'mb-2']),
+                            ->extraImgAttributes([
+                                'class' => 'mb-2',
+                                'style' => 'object-fit: fill;',
+                            ]),
                         Stack::make([
                             TextColumn::make('title')
                                 ->label(__('Title'))
