@@ -14,6 +14,9 @@ return [
         'name' => [
             'name' => 'Name',
         ],
+        'number_of_books' => [
+            'name' => 'Number of Books',
+        ],
         'created_at' => [
             'name' => 'Created At',
         ],

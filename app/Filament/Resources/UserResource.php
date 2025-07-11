@@ -25,7 +25,7 @@ class UserResource extends Resource
 
     public static function getLabel(): ?string
     {
-        return __('User');
+        return __('models/user.name.singular');
     }
 
     public static function getNavigationGroup(): ?string
@@ -38,38 +38,37 @@ class UserResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
-                    ->label(__('filament-panels::pages/auth/register.form.name.label'))
+                    ->label(__('models/user.columns.name.name'))
                     ->required()
                     ->maxLength(255)
                     ->autofocus(),
                 TextInput::make('username')
-                    ->label(__('Username'))
+                    ->label(__('models/user.columns.username.name'))
                     ->required()
                     ->maxLength(255)
                     ->unique(ignoreRecord: true),
                 TextInput::make('email')
-                    ->label(__('filament-panels::pages/auth/register.form.email.label'))
+                    ->label(__('models/user.columns.email.name'))
                     ->email()
                     ->required()
                     ->maxLength(255)
                     ->unique(ignoreRecord: true),
                 Select::make('roles')
-                    ->label(__('Role'))
+                    ->label(__('models/user.columns.roles.name'))
                     ->relationship('roles', 'name', fn (Builder $query) => $query->where('name', '!=', 'Admin'))
                     ->required()
                     ->multiple()
                     ->preload(),
                 TextInput::make('password')
-                    ->label(__('filament-panels::pages/auth/register.form.password.label'))
+                    ->label(__('models/user.columns.password.name'))
                     ->password()
                     ->revealable(filament()->arePasswordsRevealable())
                     ->required(fn ($context) => $context == 'create')
                     ->rule(Password::default())
                     ->dehydrateStateUsing(fn ($state) => Hash::make($state))
-                    ->same('passwordConfirmation')
-                    ->validationAttribute(__('filament-panels::pages/auth/register.form.password.validation_attribute')),
+                    ->same('passwordConfirmation'),
                 TextInput::make('passwordConfirmation')
-                    ->label(__('filament-panels::pages/auth/register.form.password_confirmation.label'))
+                    ->label(__('models/user.columns.password_confirmation.name'))
                     ->password()
                     ->revealable(filament()->arePasswordsRevealable())
                     ->required(fn ($context) => $context == 'create')
@@ -93,24 +92,25 @@ class UserResource extends Resource
                     ->alignCenter()
                     ->width('1%'),
                 Tables\Columns\TextColumn::make('name')
-                    ->label(__('Name'))
+                    ->label(__('models/user.columns.name.name'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
+                    ->label(__('models/user.columns.email.name'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('roles.name')
+                    ->label(__('models/user.columns.roles.name'))
                     ->badge(),
                 Tables\Columns\TextColumn::make('email_verified_at')
+                    ->label(__('models/user.columns.email_verified_at.name'))
                     ->dateTime()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label(__('models/user.columns.created_at.name'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('deleted_at')
+                    ->label(__('models/user.columns.updated_at.name'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

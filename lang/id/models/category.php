@@ -14,6 +14,9 @@ return [
         'name' => [
             'name' => 'Nama',
         ],
+        'number_of_books' => [
+            'name' => 'Jumlah Buku',
+        ],
         'created_at' => [
             'name' => 'Tanggal Dibuat',
         ],

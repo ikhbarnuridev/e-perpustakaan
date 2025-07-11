@@ -14,20 +14,26 @@ return [
         'name' => [
             'name' => 'Nama',
         ],
+        'username' => [
+            'name' => 'Username',
+        ],
         'nis' => [
             'name' => 'NIS',
         ],
         'email' => [
             'name' => 'Alamat Email',
         ],
-        'name' => [
-            'name' => 'Nama',
+        'roles' => [
+            'name' => 'Peran',
         ],
         'email_verified_at' => [
             'name' => 'Tanggal Verifikasi Email',
         ],
         'password' => [
             'name' => 'Kata Sandi',
+        ],
+        'password_confirmation' => [
+            'name' => 'Konfirmasi Kata Sandi',
         ],
         'remember_to' => [
             'name' => 'Ingat',

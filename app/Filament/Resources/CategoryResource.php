@@ -21,7 +21,7 @@ class CategoryResource extends Resource
 
     public static function getLabel(): ?string
     {
-        return __('Category');
+        return __('models/category.name.singular');
     }
 
     public static function getNavigationGroup(): ?string
@@ -34,7 +34,7 @@ class CategoryResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
-                    ->label(__('Name'))
+                    ->label(__('models/category.columns.name.name'))
                     ->required()
                     ->maxLength(255)
                     ->unique(ignoreRecord: true),
@@ -53,10 +53,10 @@ class CategoryResource extends Resource
                     ->alignCenter()
                     ->width('1%'),
                 Tables\Columns\TextColumn::make('name')
-                    ->label(__('Name'))
+                    ->label(__('models/category.columns.name.name'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('books_count')
-                    ->label('Jumlah Buku')
+                    ->label(__('models/category.columns.number_of_books.name'))
                     ->alignCenter()
                     ->sortable(),
             ])
