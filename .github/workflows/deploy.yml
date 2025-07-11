@@ -42,10 +42,10 @@ jobs:
             # Delete node_modules folder to clean up unnecessary dev dependencies after build
             rm -rf node_modules
 
-            # Cache all Blade icons to improve performance
-            php artisan migrate
+            # Run database migrations (force without confirmation)
+            php artisan migrate --force
 
-            # Cache all Blade icons to improve performance
+            # Optimize Filament
             php artisan filament:optimize
 
             # Bring the Laravel application back up (exit maintenance mode)
