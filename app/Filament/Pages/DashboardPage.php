@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Widgets\AnnouncementWidget;
 use App\Filament\Widgets\LatestBorrowingRequestWidget;
 use App\Filament\Widgets\StatsOverviewWidget;
 use Filament\Pages\Dashboard;
@@ -19,6 +20,8 @@ class DashboardPage extends Dashboard
 
     protected static ?string $slug = 'dashboard';
 
+    protected static string $view = 'filament.pages.dashboard-page';
+
     public function getColumns(): int|string|array
     {
         return 1;
@@ -30,6 +33,7 @@ class DashboardPage extends Dashboard
             AccountWidget::class,
             StatsOverviewWidget::class,
             LatestBorrowingRequestWidget::class,
+            AnnouncementWidget::class,
         ];
 
         return $widgets;
