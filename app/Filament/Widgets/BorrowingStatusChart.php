@@ -3,12 +3,15 @@
 namespace App\Filament\Widgets;
 
 use App\Models\Borrowing;
+use BezhanSalleh\FilamentShield\Traits\HasWidgetShield;
 use Filament\Support\Colors\Color;
 use Filament\Widgets\ChartWidget;
 use Illuminate\Contracts\Support\Htmlable;
 
 class BorrowingStatusChart extends ChartWidget
 {
+    use HasWidgetShield;
+
     protected static ?string $maxHeight = '274px';
 
     public function getHeading(): string|Htmlable|null
