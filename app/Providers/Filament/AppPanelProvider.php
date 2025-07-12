@@ -86,6 +86,7 @@ class AppPanelProvider extends PanelProvider
                     ->icon('heroicon-m-user-circle'),
             ])
             ->spa()
-            ->favicon(asset('assets/images/logo.png'));
+            ->favicon(asset('assets/images/logo.png'))
+            ->sidebarCollapsibleOnDesktop();
     }
 }
