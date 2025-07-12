@@ -97,7 +97,7 @@ class ReportingPage extends Page implements HasTable
             ->heading(__('Borrowing Records'));
     }
 
-    public function getVisibleHeaderWidgets(): array
+    public function getHeaderWidgets(): array
     {
         $widgets = [
             BorrowingStatusChart::class,
