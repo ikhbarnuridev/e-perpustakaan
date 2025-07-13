@@ -91,7 +91,19 @@ class AppPanelProvider extends PanelProvider
             ->viteTheme('resources/css/filament/app/theme.css')
             ->sidebarWidth('18rem')
             ->colors([
-                'primary' => Color::Blue,
+                'primary' => [
+                    50 => '230, 245, 255',
+                    100 => '204, 234, 252',
+                    200 => '153, 213, 248',
+                    300 => '102, 191, 240',
+                    400 => '51, 170, 230',
+                    500 => '7, 144, 217',
+                    600 => '6, 120, 181',
+                    700 => '5, 96, 145',
+                    800 => '4, 72, 109',
+                    900 => '3, 48, 73',
+                    950 => '2, 36, 55',
+                ],
             ]);
     }
 }

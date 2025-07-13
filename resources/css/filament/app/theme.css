@@ -18,7 +18,7 @@ body.fi-body {
 }
 
 aside.fi-sidebar {
-    @apply bg-gradient-to-b from-slate-700 to-slate-800 dark:bg-gradient-to-b dark:from-gray-800 dark:to-gray-900;
+    @apply bg-gradient-to-b from-blue-500 to-blue-600 dark:bg-gradient-to-b dark:from-gray-800 dark:to-gray-900;
 
     & .fi-sidebar-nav-groups {
         @apply gap-y-3;
@@ -43,26 +43,18 @@ aside.fi-sidebar {
 
         & .fi-sidebar-group-button span,
         button {
-            @apply text-blue-300;
+            @apply text-white dark:text-blue-300;
         }
     }
 
     /* Sidebar Header */
     header.fi-sidebar-header {
-        @apply bg-blue-800 dark:bg-gray-900 h-12;
+        @apply bg-blue-500 dark:bg-gray-900;
 
-        & .fi-logo {
+        & .fi-logo,
+        .fi-icon-btn {
             @apply text-white;
         }
-    }
-}
-
-/* Topbar */
-div.fi-topbar nav {
-    @apply bg-blue-800 dark:bg-gray-900 h-12;
-
-    .language-switch-trigger {
-        @apply text-white;
     }
 }
 
@@ -70,7 +62,7 @@ div.fi-topbar nav {
 table.fi-ta-table {
     /* Tabel Header */
     & thead tr {
-        @apply bg-gradient-to-br from-blue-700 to-blue-800 dark:bg-gradient-to-br dark:from-gray-700 dark:to-gray-800;
+        @apply bg-gradient-to-br from-blue-500 to-blue-600 dark:bg-gradient-to-br dark:from-gray-700 dark:to-gray-800;
 
         & th span {
             @apply text-white;
