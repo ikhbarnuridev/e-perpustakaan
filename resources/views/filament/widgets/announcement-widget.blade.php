@@ -1,6 +1,6 @@
 <x-filament-widgets::widget>
     <x-filament::section heading="Aturan Peminjaman" icon="heroicon-o-information-circle" iconColor="info">
-        <ul class="list-disc ms-8">
+        <ul class="list-disc ps-4">
             <li>Waktu peminjaman maksimal 1 minggu</li>
             <li>Setiap anggota hanya dapat meminjam maksimal 3 buku</li>
             <li>Jika pengembalian buku lebih dari waktu yang ditentukan akan diberikan denda setiap buku

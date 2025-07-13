@@ -81,12 +81,16 @@ class AppPanelProvider extends PanelProvider
             ])
             ->userMenuItems([
                 'profile' => MenuItem::make()
-                    ->label(fn () => auth()->user()->name)
-                    ->url(fn (): string => EditProfilePage::getUrl())
+                    ->label(fn() => auth()->user()->name)
+                    ->url(fn(): string => EditProfilePage::getUrl())
                     ->icon('heroicon-m-user-circle'),
             ])
             ->spa()
             ->favicon(asset('assets/images/logo.png'))
-            ->sidebarCollapsibleOnDesktop();
+            ->sidebarCollapsibleOnDesktop()
+            ->viteTheme('resources/css/filament/app/theme.css')
+            ->colors([
+                'primary' => Color::Amber
+            ]);
     }
 }
