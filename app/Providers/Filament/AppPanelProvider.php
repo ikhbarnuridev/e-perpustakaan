@@ -89,8 +89,9 @@ class AppPanelProvider extends PanelProvider
             ->favicon(asset('assets/images/logo.png'))
             ->sidebarCollapsibleOnDesktop()
             ->viteTheme('resources/css/filament/app/theme.css')
+            ->sidebarWidth('18rem')
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Blue,
             ]);
     }
 }
