@@ -104,6 +104,7 @@ class AppPanelProvider extends PanelProvider
                     900 => '3, 48, 73',
                     950 => '2, 36, 55',
                 ],
-            ]);
+            ])
+            ->brandLogo(fn () => view('filament.components.logo'));
     }
 }
