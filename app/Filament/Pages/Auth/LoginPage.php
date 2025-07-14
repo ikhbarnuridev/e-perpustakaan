@@ -5,10 +5,22 @@ namespace App\Filament\Pages\Auth;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;
 use Filament\Pages\Auth\Login;
+use Filament\Support\Facades\FilamentView;
+use Filament\View\PanelsRenderHook;
 use Illuminate\Validation\ValidationException;
 
 class LoginPage extends Login
 {
+    public function mount(): void
+    {
+        parent::mount();
+
+        FilamentView::registerRenderHook(
+            PanelsRenderHook::STYLES_AFTER,
+            fn (): string => view('filament.styles.login')->render(),
+        );
+    }
+
     protected function getForms(): array
     {
         return [
