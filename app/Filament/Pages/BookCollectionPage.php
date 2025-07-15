@@ -141,7 +141,8 @@ class BookCollectionPage extends Page implements HasTable
                                 TextEntry::make('year_published')
                                     ->label(__('Year Published')),
                                 TextEntry::make('stock')
-                                    ->label(__('Available Stock')),
+                                    ->label(__('Available Stock'))
+                                    ->getStateUsing(fn ($record) => $record->availableStock()),
                                 TextEntry::make('categories.name')
                                     ->label(__('Category'))
                                     ->badge(),
