@@ -7,13 +7,19 @@ use App\Models\Borrowing;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
+use Illuminate\Database\Eloquent\Builder;
 
 class BorrowingTable extends BaseWidget
 {
+    public function getTableQuery(): Builder
+    {
+        return Borrowing::query();
+    }
+
     public function table(Table $table): Table
     {
         return $table
-            ->query(fn () => Borrowing::query())
+            ->query($this->getTableQuery())
             ->columns([
                 Tables\Columns\TextColumn::make('index')
                     ->label('No')
