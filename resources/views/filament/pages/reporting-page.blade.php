@@ -1,3 +1,5 @@
 <x-filament-panels::page>
-    {{ $this->table }}
+    @livewire($this->getBorrowingTable())
+
+    @livewire($this->getMemberTable())
 </x-filament-panels::page>
