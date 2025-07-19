@@ -77,7 +77,7 @@
     "Hello!": "Halo!",
     "Hide": "Bersembunyi",
     "Hide :name": "Sembunyikan :name",
-    "Home": "Rumah",
+    "Home": "Beranda",
     "HTTP Version Not Supported": "Versi HTTP tidak mendukung",
     "I'm a teapot": "Saya teko",
     "If you did not create an account, no further action is required.": "Jika Anda tidak membuat akun, Anda tidak perlu melakukan apapun.",
@@ -277,5 +277,6 @@
     "Total Borrowings": "Jumlah Peminjaman",
     "Announcement": "Pengumuman",
     "Member Records": "Data Anggota",
-    "Export Member Records": "Expor Data Anggota"
+    "Export Member Records": "Expor Data Anggota",
+    "Dashboard": "Dasbor"
 }
